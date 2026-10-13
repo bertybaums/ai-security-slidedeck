@@ -1,6 +1,6 @@
-# AI Security — NCURA Annual Meeting 2026
+# Your Risk-Averse Mindset Needed — NCURA Regional Meeting 2026
 
-An HTML-based slide deck for the NCURA Annual Meeting presentation on AI security for research administrators.  
+An HTML-based slide deck for the NCURA Regional Meeting '26 session *Your Risk-Averse Mindset Needed: Responsibly Navigating the AI Adoption Rodeo*, on AI security for research administrators.  
 Hosted on GitHub Pages at: **[your-github-pages-url]**
 
 ---
@@ -52,7 +52,7 @@ The title slide (`.title-safe`) places white text over the mountains, inside the
 
 **To add or edit slide content**, open `index.html`. Each slide is a `<div class="slide ...">` block. Any element with `data-step` starts hidden and is revealed one at a time with Space/→ before the deck advances to the next slide. Use this for bullet list items (`<li data-step>`) and process-flow nodes.
 
-**Presenter photos** are live on slide 2: `sheneman.jpg` (Luke Sheneman) and `wiggins.jpg` (Nathan Wiggins), rendered as `<img class="photo-circle" style="object-fit:cover;" />`. To swap in a different photo, replace the file in the repo root (or the `src` on the corresponding `.photo-circle` img in `index.html`).
+**Presenters** appear on slide 2 and the contact slide (35) in a three-column grid: Nathan Wiggins (`wiggins.jpg`), Bert Baumgaertner (`Bert.webp`), and Lucas Marshall (`marshall.jpeg`), rendered as `<img class="photo-circle" style="object-fit:cover;" />` (`contact-avatar` on the contact slide). To swap in a different photo, replace the file in the repo root or the `src` on the corresponding img in `index.html`. Without a photo, a `<div class="photo-circle">AB</div>` shows initials on a blue gradient.
 
 **Fonts:** Arial throughout. No external font dependencies.
 

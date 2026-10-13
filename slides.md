@@ -1,14 +1,15 @@
 # Introduction
 
 ## Title Slide
-AI Security
-What Research Administrators Need to Know to Make Informed Decisions
-Luke Sheneman · Nathan Wiggins
+Your Risk-Averse Mindset Needed: Responsibly Navigating the AI Adoption Rodeo
+(Main title: "Your Risk-Averse Mindset Needed"; subtitle: "Responsibly Navigating the AI Adoption Rodeo")
+Nathan Wiggins · Bert Baumgaertner · Lucas Marshall
 (White text centered over the mountains on the NCURA Regional Meeting '26 title background)
 
 ## Presenters
-Luke Sheneman, Director of Research Computing, University of Idaho (photo: sheneman.jpg)
 Nathan Wiggins, Data Scientist, Southern Utah University (photo: wiggins.jpg)
+Bert Baumgaertner, Director of AI Ethics and Professor of Philosophy, University of Idaho (photo: Bert.webp)
+Lucas Marshall, Research Advancement Administrator, Arizona State University (photo: marshall.jpeg)
 
 ## Presentation Overview
 Section I: AI Model Training
@@ -143,5 +144,6 @@ Key: Standardized guidance is key for maintaining security
 ## Question and Answer Time
 
 ## Contact Information
-Luke Sheneman: sheneman@uidaho.edu (photo: sheneman.jpg)
 Nathan Wiggins: nathanwiggins@suu.edu (photo: wiggins.jpg)
+Bert Baumgaertner, Director of AI Ethics and Professor of Philosophy, University of Idaho (email: TBD) (photo: Bert.webp)
+Lucas Marshall, Research Advancement Administrator, Arizona State University (email: TBD) (photo: marshall.jpeg)
