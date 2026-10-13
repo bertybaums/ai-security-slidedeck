@@ -34,15 +34,17 @@ Hosted on GitHub Pages at: **[your-github-pages-url]**
 
 ## Layout
 
-Content is positioned inside a safe zone that clears the NCURA logo (top) and NYC skyline graphic (bottom):
+Content is positioned inside a safe zone that clears the NCURA Regional Meeting '26 mountain banner along the bottom of the content background:
 
 | Property | Value |
 |----------|-------|
-| Safe zone top | 152 px |
-| Safe zone bottom | 300 px |
+| Safe zone top | 102 px |
+| Safe zone bottom | 350 px |
 | Slide canvas | 1920 × 1080 px |
 
-Reducing the bottom from the original 395 px to 300 px reclaims ~95 px of usable vertical space while still clearing the tallest skyline peaks (~350 px from bottom).
+The center mountain peak reaches ~342 px from the bottom (y ≈ 738), so the safe zone ends at y = 730. With no logo at the top, the zone sits 50 px higher than the Annual Meeting layout while keeping the same 628 px height. Full-width graphic slides use fixed image heights that extend past the safe zone over the mountains, stopping above the NCURA banner text.
+
+The title slide (`.title-safe`) places white text over the mountains, inside the template's title box (y = 740 to 1040).
 
 ---
 
@@ -54,7 +56,7 @@ Reducing the bottom from the original 395 px to 300 px reclaims ~95 px of usable
 
 **Fonts:** Arial throughout. No external font dependencies.
 
-**Images:** Both background PNGs (`Title Slide.png`, `Slide Template.png`) are referenced from the repository root.
+**Images:** Both background PNGs (`Title_Slide.png`, `Slide_Template.png`) are referenced from the repository root. On the `regional` branch they are the NCURA Regional Meeting '26 backgrounds from the regional PowerPoint template (1672 × 941 source, scaled to fill the 1920 × 1080 canvas).
 
 ---
 

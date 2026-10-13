@@ -50,13 +50,13 @@
     .bg-title    { background-image: url('Title_Slide.png'); }
     .bg-template { background-image: url('Slide_Template.png'); }
 
-    /* ── Content safe zone (clears logo + skyline) ────────────────── */
+    /* ── Content safe zone (clears mountain banner) ───────────────── */
     .content {
       position: absolute;
-      top:    152px;
+      top:    102px;
       left:   96px;
       right:  96px;
-      bottom: 300px;
+      bottom: 350px;
       display: flex;
       flex-direction: column;
     }
@@ -82,62 +82,38 @@
     /* ════════════════════════════════════════════════════════════════
        Title
     ════════════════════════════════════════════════════════════════ */
+    /* Text sits over the mountains, matching the template's title box */
     .title-safe {
       position: absolute;
-      top:    152px;
-      left:   96px;
-      right:  96px;
-      bottom: 300px;
+      top:    740px;
+      left:   228px;
+      right:  228px;
+      bottom: 40px;
       display: flex;
       flex-direction: column;
-      justify-content: center;
-    }
-
-    .title-event {
-      font-size: 17px;
-      font-weight: 700;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: #1a3a8f;
-      margin-bottom: 20px;
+      align-items: center;
+      text-align: center;
+      color: #fff;
+      text-shadow: 0 2px 14px rgba(10, 25, 60, 0.75);
     }
 
     .title-main {
-      font-size: 86px;
+      font-size: 88px;
       font-weight: 700;
-      color: #111;
       line-height: 1.05;
-      margin-bottom: 22px;
+      margin-bottom: 14px;
     }
 
     .title-tagline {
-      font-size: 30px;
-      color: #555;
+      font-size: 34px;
       font-weight: 400;
-      margin-bottom: 48px;
+      margin-bottom: 22px;
     }
 
-    .title-byline {
-      display: flex;
-      gap: 72px;
-      padding-left: 4px;
-    }
-
-    .title-person {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .title-person-name {
-      font-size: 21px;
+    .title-presenters {
+      font-size: 26px;
       font-weight: 700;
-      color: #1a3a8f;
-    }
-
-    .title-person-role {
-      font-size: 17px;
-      color: #666;
+      letter-spacing: 0.04em;
     }
 
     /* ════════════════════════════════════════════════════════════════
@@ -272,7 +248,7 @@
     ════════════════════════════════════════════════════════════════ */
     .section-divider-wrap {
       position: absolute;
-      top: 152px; left: 96px; right: 96px; bottom: 300px;
+      top: 102px; left: 96px; right: 96px; bottom: 350px;
       display: flex;
       align-items: center;
     }
@@ -1145,7 +1121,7 @@
     ════════════════════════════════════════════════════════════════ */
     .qa-wrap {
       position: absolute;
-      top: 152px; left: 96px; right: 96px; bottom: 300px;
+      top: 102px; left: 96px; right: 96px; bottom: 350px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -1398,7 +1374,13 @@
   <!-- ══════════════════════════════════════════════════════════════
        Title
   ══════════════════════════════════════════════════════════════════ -->
-  <div class="slide bg-title is-active" data-section="0" data-index="0"></div>
+  <div class="slide bg-title is-active" data-section="0" data-index="0">
+    <div class="title-safe">
+      <div class="title-main">AI Security</div>
+      <div class="title-tagline">What Research Administrators Need to Know to Make Informed Decisions</div>
+      <div class="title-presenters">Luke Sheneman &nbsp;&middot;&nbsp; Nathan Wiggins</div>
+    </div>
+  </div>
 
   <!-- ══════════════════════════════════════════════════════════════
        Presenters

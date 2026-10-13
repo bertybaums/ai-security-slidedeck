@@ -1,6 +1,10 @@
 # Introduction
 
 ## Title Slide
+AI Security
+What Research Administrators Need to Know to Make Informed Decisions
+Luke Sheneman · Nathan Wiggins
+(White text centered over the mountains on the NCURA Regional Meeting '26 title background)
 
 ## Presenters
 Luke Sheneman, Director of Research Computing, University of Idaho (photo: sheneman.jpg)
