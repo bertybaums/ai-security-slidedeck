@@ -2,7 +2,7 @@
 
 ## Title Slide
 Your Risk-Averse Mindset Needed: Responsibly Navigating the AI Adoption Rodeo
-(Main title: "Your Risk-Averse Mindset Needed"; subtitle: "Responsibly Navigating the AI Adoption Rodeo")
+(Small lead-in line: "Your Risk-Averse Mindset Needed"; large main line: "Responsibly Navigating the AI Adoption Rodeo")
 Nathan Wiggins · Bert Baumgaertner · Lucas Marshall
 (White text centered over the mountains on the NCURA Regional Meeting '26 title background)
 
