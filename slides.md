@@ -34,44 +34,11 @@ Two images side by side. Left: whatis.png — the major families of AI models (L
 ## Inspired by Biology
 Two-column layout. Left: neu.png — a real biological neuron (dendrites, soma, axon, synapse) alongside its mathematical model. Right (stacked): neural2.png — a single artificial neuron (inputs X1/X2 × weights W1/W2, summed with bias → output y); neural1.jpg — a fully connected network (input layer, two hidden layers, output layer).
 
-## Data to Features
-(Large graphic — hier1.png — hierarchical feature learning across network depth: low-level features (edges, dark spots) → mid-level features (eyes, ears, nose) → high-level features (facial structure))
-
-## Transformers!
-Two-column layout. Left: att.png — the "Attention Is All You Need" paper that introduced the Transformer. Right: abstract.png — Transformers understand language across levels of abstraction (leaves = specific words → branch = parts → tree = the whole → plant = more abstract concept).
-
 ## Training vs. Inference
 (Large graphic — training_vs_inference.jpg — Training: many users' labeled images train a model → Trained Model. Inference: a user submits a new image and the trained model predicts an output label, e.g. "Cat".)
 
 ## Interactive Visual
 (Visually appealing process flow animations that show the AI model training process, that the user can click on to show the steps in the process one by one)
-
-## Raw Data
-Two side-by-side tables — what goes into a model, and how that's grown.
-
-GPT-3 training data (2020):
-| Dataset | Tokens | Proportion |
-| Common Crawl | 410 billion | 60% |
-| WebText2 | 19 billion | 22% |
-| Books1 | 12 billion | 8% |
-| Books2 | 55 billion | 8% |
-| Wikipedia | 3 billion | 3% |
-
-Frontier models today (estimated pretraining tokens):
-| Model family | Pretraining tokens |
-| GPT-5 | 30–80T |
-| Claude 4 | 30–70T |
-| Gemini 2.5/3 | 40–100T |
-| Grok 3 | 30–80T |
-
-## Data Processing
-(Large graphic — data_processing.png — "From Raw Data to Training an LLM": 1) Raw Data (web pages, books, code, conversations) → 2) Clean & Filter → 3) Deduplicate → 4) Format & Tokenize → 5) Training Data)
-
-## Training Loop
-(Large graphic — training_loop.png — Before Training: a randomly-initialized network makes poor predictions → Training (Gradient Descent): iteratively update weights to descend the loss curve from high to low loss → After Training: the trained network fits the data and makes better predictions. Start with random weights → gradient descent minimizes loss → better predictions (lower loss).)
-
-## 3 Stages of LLM Training
-(Large graphic — llm_training_stages.png — 1) Pre-training on broad web text, code, and images → Base LLM; 2) Supervised Fine Tuning on question/answer pairs → SFT Model; 3) Reinforcement Learning from human preference ratings → RL Model.)
 
 ## Models Deployed for Inference
 (Large graphic — models_deployed_inference.png — A deployed model is "frozen" and no longer learning: inputs (images, text, tables) flow into a locked/frozen model that produces inference outputs (classification, sentiment, scores). No training, no updates, no learning — used only for inference.)

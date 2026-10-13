@@ -10,13 +10,13 @@ Hosted on GitHub Pages at: **[your-github-pages-url]**
 | # | Section | Slides |
 |---|---------|--------|
 | — | Introduction | 1 – Title, 2 – Presenters, 3 – Overview |
-| 01 | AI Model Training | 4 – Section divider, 5 – True/False interactive, 6 – What is an AI Model? (graphic), 7 – Neural Networks (graphic), 8 – Inspired by Biology (graphic), 9 – Data to Features (graphic), 10 – Transformers! (graphic), 11 – Training vs. Inference (graphic), 12 – Training process flow, 13 – Raw Data (GPT-3 training data table), 14 – Data Processing (graphic), 15 – Training Loop (graphic), 16 – 3 Stages of LLM Training (graphic), 17 – Models Deployed for Inference (graphic), 18 – Model inversion attack flow, 19 – Response Mining (graphic), 20 – Takeaways |
-| 02 | Malicious Attacks | 21 – Section divider, 22 – Resume ranking interactive, 23 – Resume attack reveal, 24 – Prompt anatomy diagram, 25 – Prompt injection examples, 26 – Prompt Injection with Agentic AI (graphic), 27 – Takeaways |
-| 03 | Risk Classification | 28 – Section divider, 29 – Shadow AI interactive, 30 – Classify data risk (interactive), 31 – Approved services per tier, 32 – NVIDIA DGX Spark spotlight, 33 – Takeaways |
+| 01 | AI Model Training | 4 – Section divider, 5 – True/False interactive, 6 – What is an AI Model? (graphic), 7 – Neural Networks (graphic), 8 – Inspired by Biology (graphic), 9 – Training vs. Inference (graphic), 10 – Training process flow, 11 – Models Deployed for Inference (graphic), 12 – Model inversion attack flow, 13 – Response Mining (graphic), 14 – Takeaways |
+| 02 | Malicious Attacks | 15 – Section divider, 16 – Resume ranking interactive, 17 – Resume attack reveal, 18 – Prompt anatomy diagram, 19 – Prompt injection examples, 20 – Prompt Injection with Agentic AI (graphic), 21 – Takeaways |
+| 03 | Risk Classification | 22 – Section divider, 23 – Shadow AI interactive, 24 – Classify data risk (interactive), 25 – Approved services per tier, 26 – NVIDIA DGX Spark spotlight, 27 – Takeaways |
 
-| — | Conclusion | 34 – Q&A, 35 – Contact information |
+| — | Conclusion | 28 – Q&A, 29 – Contact information |
 
-**Total:** 35 slides ✓
+**Total:** 29 slides ✓
 
 ---
 
@@ -52,7 +52,7 @@ The title slide (`.title-safe`) places white text over the mountains, inside the
 
 **To add or edit slide content**, open `index.html`. Each slide is a `<div class="slide ...">` block. Any element with `data-step` starts hidden and is revealed one at a time with Space/→ before the deck advances to the next slide. Use this for bullet list items (`<li data-step>`) and process-flow nodes.
 
-**Presenters** appear on slide 2 and the contact slide (35) in a three-column grid: Nathan Wiggins (`wiggins.jpg`), Bert Baumgaertner (`Bert.webp`), and Lucas Marshall (`marshall.jpeg`), rendered as `<img class="photo-circle" style="object-fit:cover;" />` (`contact-avatar` on the contact slide). To swap in a different photo, replace the file in the repo root or the `src` on the corresponding img in `index.html`. Without a photo, a `<div class="photo-circle">AB</div>` shows initials on a blue gradient.
+**Presenters** appear on slide 2 and the contact slide (29) in a three-column grid: Nathan Wiggins (`wiggins.jpg`), Bert Baumgaertner (`Bert.webp`), and Lucas Marshall (`marshall.jpeg`), rendered as `<img class="photo-circle" style="object-fit:cover;" />` (`contact-avatar` on the contact slide). To swap in a different photo, replace the file in the repo root or the `src` on the corresponding img in `index.html`. Without a photo, a `<div class="photo-circle">AB</div>` shows initials on a blue gradient.
 
 **Fonts:** Arial throughout. No external font dependencies.
 
