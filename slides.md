@@ -12,14 +12,14 @@ Bert Baumgaertner, Director of AI Ethics and Professor of Philosophy, University
 Lucas Marshall, Research Advancement Administrator, Arizona State University (photo: marshall.jpeg)
 
 ## Presentation Overview
-Section I: AI Model Training
-Section II: Malicious Attacks
+Section I: Models and Data Security
+Section II: Prompt Injection Security
 Section III: Risk Classification
 (Classy looking cards with icons next to each of them)
 
 # Section 1
 
-## 01 AI Model Training
+## 01 Models and Data Security
 
 ## Interactive Question
 True or False: AI models are trained on recognizing patterns and cannot expose the raw data they were trained on
@@ -34,14 +34,20 @@ Two images side by side. Left: whatis.png — the major families of AI models (L
 ## Inspired by Biology
 Two-column layout. Left: neu.png — a real biological neuron (dendrites, soma, axon, synapse) alongside its mathematical model. Right (stacked): neural2.png — a single artificial neuron (inputs X1/X2 × weights W1/W2, summed with bias → output y); neural1.jpg — a fully connected network (input layer, two hidden layers, output layer).
 
-## Training vs. Inference
-(Large graphic — training_vs_inference.jpg — Training: many users' labeled images train a model → Trained Model. Inference: a user submits a new image and the trained model predicts an output label, e.g. "Cat".)
+## How do AI Models Think?
+Placeholder: "Simple ARC puzzle introduction here"
 
-## Interactive Visual
+## How AI Models are Trained
 (Visually appealing process flow animations that show the AI model training process, that the user can click on to show the steps in the process one by one)
 
 ## Models Deployed for Inference
 (Large graphic — models_deployed_inference.png — A deployed model is "frozen" and no longer learning: inputs (images, text, tables) flow into a locked/frozen model that produces inference outputs (classification, sentiment, scores). No training, no updates, no learning — used only for inference.)
+
+## Training vs. Inference
+Subhead: Training is a massive one-time effort. Inference reuses the frozen model — cheaply, millions of times.
+Two side-by-side animated graphics (dark navy panels) that mirror each other — same network, very different jobs:
+- Training (orange): "The model learns from enormous amounts of data." Streams of data chips pour into a neural network; a gold forward pass ("Predict →") is followed by an orange backpropagation wave ("← Learn: adjust weights"); an error curve falls over training time; a row of GPUs runs flat out (compute meter at MAX, "× thousands"). Stats: Data — Trillions of examples · Compute — Thousands of GPUs · Time — Weeks to months · Weights — Updated constantly.
+- Inference (blue): "The trained model answers — it no longer learns." One input at a time (a cat photo, "What's the capital of France?", a "YOU WON $1,000,000!!!" email) passes once, forward only, through the same network with frozen weights, and a prediction pops out (Cat / Paris / Spam). A single mostly idle GPU (compute meter LOW): "One GPU is plenty — small models even run on a phone." Stats: Data — One input at a time · Compute — A fraction, even a phone · Time — Milliseconds to seconds · Weights — Frozen, no learning.
 
 ## Model Inversion
 (Visually appealing process flow animations that demonstrates how a bad actor might try to gain access to the raw data used to train the model)
@@ -57,7 +63,7 @@ Key: Understand how your data is being used
 
 # Section 2
 
-## 02 Malicious Attacks
+## 02 Prompt Injection Security
 
 ## Interactive Question
 Which resume will an AI evaluator rank higher for a job in research administration?

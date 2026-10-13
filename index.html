@@ -1082,6 +1082,260 @@
     .dgx-suu-icon { font-size: 24px; }
 
     /* ════════════════════════════════════════════════════════════════
+       Training vs. Inference (animated)
+       Training loop: 4s · Inference: 5.4s per input, 3 inputs (16.2s)
+    ════════════════════════════════════════════════════════════════ */
+    .ti-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+
+    .ti-panel {
+      display: flex;
+      flex-direction: column;
+      padding: 20px 26px 18px;
+      border-radius: 20px;
+      color: #fff;
+      box-shadow: 0 18px 44px rgba(10, 26, 61, 0.35);
+      overflow: hidden;
+    }
+
+    .ti-train {
+      --accent: #ffa860;
+      --accent-soft: rgba(255, 168, 96, 0.16);
+      background: radial-gradient(circle at 42% 38%, rgba(255, 120, 40, 0.20), transparent 58%),
+                  linear-gradient(160deg, #13295b 0%, #0a1a3d 100%);
+    }
+
+    .ti-infer {
+      --accent: #6fd3ff;
+      --accent-soft: rgba(111, 211, 255, 0.14);
+      background: radial-gradient(circle at 54% 38%, rgba(80, 180, 255, 0.16), transparent 58%),
+                  linear-gradient(160deg, #13295b 0%, #0a1a3d 100%);
+    }
+
+    .ti-head {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 10px;
+    }
+
+    .ti-tag {
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: var(--accent-soft);
+      border: 1px solid var(--accent);
+      border-radius: 20px;
+      padding: 6px 14px;
+    }
+
+    .ti-title { font-size: 23px; font-weight: 700; color: #fff; }
+
+    .ti-svg { display: block; width: 100%; height: auto; overflow: visible; }
+
+    .ti-rl {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      fill: rgba(255, 255, 255, 0.5);
+    }
+
+    .ti-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-top: 10px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .ti-stat-k {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+
+    .ti-stat-v { font-size: 18px; font-weight: 700; line-height: 1.25; }
+
+    /* Shared network + hardware (built in JS) */
+    .ti-e { stroke: #fff; stroke-opacity: 0.1; stroke-width: var(--w, 1); }
+    .ti-n { fill: #142f66; stroke: rgba(255, 255, 255, 0.4); stroke-width: 1.5; }
+
+    .ti-gpu-body { fill: #172f63; stroke: var(--accent); stroke-opacity: 0.55; stroke-width: 1.5; }
+    .ti-gpu-bar  { fill: var(--accent); transform-box: fill-box; transform-origin: center bottom; }
+    .ti-gpu-led  { fill: var(--accent); }
+    .ti-meter-bg { fill: rgba(255, 255, 255, 0.1); }
+    .ti-meter    { fill: var(--accent); }
+    .ti-meter-t  { font-size: 13px; font-weight: 700; letter-spacing: 0.12em; fill: var(--accent); }
+
+    /* ── Training: data firehose ── */
+    .ti-lane { stroke: rgba(255, 168, 96, 0.25); stroke-dasharray: 2 9; animation: ti-lane 0.6s linear infinite; }
+    .ti-chip { animation: ti-flow 2s linear infinite; }
+    .ti-chip rect { fill: rgba(255, 168, 96, 0.18); stroke: #ffa860; stroke-width: 1; }
+    .ti-chip text { font-size: 10px; font-weight: 700; fill: #ffd9b8; }
+    .ti-chip.alt rect { fill: rgba(143, 199, 255, 0.16); stroke: #8fc7ff; }
+    .ti-chip.alt text { fill: #d4e9ff; }
+
+    @keyframes ti-lane { to { stroke-dashoffset: -11; } }
+    @keyframes ti-flow {
+      0%   { transform: translateX(-10px); opacity: 0; }
+      12%  { opacity: 1; }
+      86%  { opacity: 1; }
+      100% { transform: translateX(270px); opacity: 0; }
+    }
+
+    /* ── Training: forward pass (gold) then backpropagation (orange) ── */
+    .ti-train .ti-e0 { animation: ti-tr-e0 4s linear infinite; }
+    .ti-train .ti-e1 { animation: ti-tr-e1 4s linear infinite; }
+    .ti-train .ti-e2 { animation: ti-tr-e2 4s linear infinite; }
+    .ti-train .ti-n0 { animation: ti-tr-n0 4s linear infinite; }
+    .ti-train .ti-n1 { animation: ti-tr-n1 4s linear infinite; }
+    .ti-train .ti-n2 { animation: ti-tr-n2 4s linear infinite; }
+    .ti-train .ti-n3 { animation: ti-tr-n3 4s linear infinite; }
+
+    @keyframes ti-tr-e0 {
+      0%, 3%, 18%, 74%, 92%, 100% { stroke: #fff; stroke-opacity: 0.1; }
+      10% { stroke: #ffd48a; stroke-opacity: 0.85; }
+      82% { stroke: #ff6a2b; stroke-opacity: 0.9; }
+    }
+    @keyframes ti-tr-e1 {
+      0%, 13%, 28%, 62%, 80%, 100% { stroke: #fff; stroke-opacity: 0.1; }
+      20% { stroke: #ffd48a; stroke-opacity: 0.85; }
+      70% { stroke: #ff6a2b; stroke-opacity: 0.9; }
+    }
+    @keyframes ti-tr-e2 {
+      0%, 23%, 38%, 50%, 68%, 100% { stroke: #fff; stroke-opacity: 0.1; }
+      30% { stroke: #ffd48a; stroke-opacity: 0.85; }
+      58% { stroke: #ff6a2b; stroke-opacity: 0.9; }
+    }
+    @keyframes ti-tr-n0 {
+      0%, 14%, 80%, 96%, 100% { fill: #142f66; }
+      6%  { fill: #ffd48a; }
+      88% { fill: #ff6a2b; }
+    }
+    @keyframes ti-tr-n1 {
+      0%, 9%, 25%, 68%, 84%, 100% { fill: #142f66; }
+      16% { fill: #ffd48a; }
+      76% { fill: #ff6a2b; }
+    }
+    @keyframes ti-tr-n2 {
+      0%, 19%, 35%, 56%, 72%, 100% { fill: #142f66; }
+      26% { fill: #ffd48a; }
+      64% { fill: #ff6a2b; }
+    }
+    @keyframes ti-tr-n3 {
+      0%, 29%, 58%, 100% { fill: #142f66; }
+      37% { fill: #ffd48a; }
+      46% { fill: #ff6a2b; }
+    }
+
+    .ti-tr-fwd { fill: #ffd48a; animation: ti-lbl-fwd 4s linear infinite; }
+    .ti-tr-bwd { fill: #ff8a4c; animation: ti-lbl-bwd 4s linear infinite; }
+    @keyframes ti-lbl-fwd { 0%, 40% { opacity: 1; } 45%, 95% { opacity: 0; } 100% { opacity: 1; } }
+    @keyframes ti-lbl-bwd { 0%, 40% { opacity: 0; } 45%, 95% { opacity: 1; } 100% { opacity: 0; } }
+
+    /* ── Training: error curve falls as the model learns ── */
+    .ti-axis   { fill: none; stroke: rgba(255, 255, 255, 0.25); stroke-width: 1.5; }
+    .ti-axis-t { font-size: 12px; fill: rgba(255, 255, 255, 0.45); }
+    .ti-loss {
+      fill: none;
+      stroke: #ffa860;
+      stroke-width: 3;
+      stroke-linejoin: round;
+      stroke-dasharray: 100;
+      animation: ti-draw 8s linear infinite;
+    }
+    .ti-loss-dot { fill: #fff; }
+    @keyframes ti-draw {
+      0%        { stroke-dashoffset: 100; opacity: 1; }
+      75%, 92%  { stroke-dashoffset: 0;   opacity: 1; }
+      100%      { stroke-dashoffset: 0;   opacity: 0; }
+    }
+
+    /* ── Training: GPU cluster running flat out ── */
+    .ti-train .ti-gpu-bar  { animation: ti-busy 0.7s ease-in-out infinite alternate; }
+    .ti-train .ti-gpu-led  { animation: ti-blink 0.35s steps(2) infinite; }
+    .ti-train .ti-gpu-body { animation: ti-heat 1.6s ease-in-out infinite alternate; }
+    .ti-train .ti-meter    { animation: ti-heat 0.8s ease-in-out infinite alternate; }
+    .ti-gpu-more { font-size: 18px; font-weight: 700; fill: #ffa860; }
+
+    @keyframes ti-busy  { from { transform: scaleY(0.3); } to { transform: scaleY(1); } }
+    @keyframes ti-blink { 50% { opacity: 0.2; } }
+    @keyframes ti-heat  { from { stroke-opacity: 0.35; opacity: 0.75; } to { stroke-opacity: 1; opacity: 1; } }
+
+    /* ── Inference: one input → one quick forward pass → one output ── */
+    .ti-infer .ti-e   { stroke: #a8dcff; stroke-opacity: 0.14; animation: ti-in-edge 5.4s linear infinite; }
+    .ti-infer .ti-n   { stroke: rgba(168, 220, 255, 0.55); animation: ti-in-node 5.4s linear infinite; }
+    .ti-infer .ti-e1, .ti-infer .ti-n1 { animation-delay: 0.32s; }
+    .ti-infer .ti-e2, .ti-infer .ti-n2 { animation-delay: 0.65s; }
+    .ti-infer .ti-n3 { animation-delay: 0.97s; }
+
+    @keyframes ti-in-edge {
+      0%, 42%, 54%, 100% { stroke-opacity: 0.14; }
+      47% { stroke-opacity: 0.85; }
+    }
+    @keyframes ti-in-node {
+      0%, 41%, 52%, 100% { fill: #142f66; }
+      45% { fill: #6fd3ff; }
+    }
+
+    .ti-wire { stroke: #6fd3ff; stroke-width: 2; }
+    .ti-fanin, .ti-fanout { opacity: 0; animation: ti-wire 5.4s linear infinite; }
+    .ti-fanout { animation-delay: 1.26s; }
+    @keyframes ti-wire { 0%, 38%, 50%, 100% { opacity: 0; } 43% { opacity: 0.9; } }
+
+    .ti-card, .ti-out { transform-box: fill-box; transform-origin: center; opacity: 0; }
+    .ti-card { animation: ti-card 16.2s ease-in-out infinite; }
+    .ti-out  { animation: ti-out 16.2s ease-out infinite; }
+    .ti-card:nth-of-type(2), .ti-out:nth-of-type(2) { animation-delay: 5.4s; }
+    .ti-card:nth-of-type(3), .ti-out:nth-of-type(3) { animation-delay: 10.8s; }
+
+    @keyframes ti-card {
+      0%          { opacity: 0; transform: translateX(-36px); }
+      3%          { opacity: 1; transform: translateX(0); }
+      11.5%       { opacity: 1; transform: translateX(0) scale(1); }
+      14.8%, 100% { opacity: 0; transform: translateX(64px) scale(0.55); }
+    }
+    @keyframes ti-out {
+      0%, 20.5%   { opacity: 0; transform: scale(0.85); }
+      22.5%       { opacity: 1; transform: scale(1.05); }
+      24%, 39%    { opacity: 1; transform: scale(1); }
+      41.5%, 100% { opacity: 0; transform: scale(1); }
+    }
+
+    .ti-card-box { fill: rgba(255, 255, 255, 0.06); stroke: rgba(111, 211, 255, 0.5); stroke-width: 1.5; }
+    .ti-card-t   { font-size: 16px; font-weight: 700; fill: #fff; }
+    .ti-out-box  { fill: rgba(111, 211, 255, 0.12); stroke: #6fd3ff; stroke-width: 1.5; }
+    .ti-out-k    { font-size: 11px; font-weight: 700; letter-spacing: 0.14em; fill: #6fd3ff; }
+    .ti-out-v    { font-size: 34px; font-weight: 700; fill: #fff; }
+
+    /* ── Inference: one GPU, mostly idle ── */
+    .ti-infer .ti-gpu-bar { transform: scaleY(0.15); animation: ti-blip 5.4s ease-out infinite; }
+    .ti-infer .ti-gpu-led { animation: ti-blink 2.2s steps(2) infinite; }
+    .ti-gpu-note   { font-size: 16px; font-weight: 700; fill: #fff; }
+    .ti-gpu-note-s { font-size: 13px; fill: rgba(255, 255, 255, 0.55); }
+
+    @keyframes ti-blip {
+      0%, 40%, 70%, 100% { transform: scaleY(0.15); }
+      48% { transform: scaleY(0.7); }
+    }
+
+    /* PDF export: freeze on a representative frame */
+    @media print {
+      .ti-panel * { animation: none !important; }
+      .ti-card:first-of-type, .ti-out:first-of-type { opacity: 1; }
+      .ti-tr-bwd { opacity: 0; }
+    }
+
+    /* ════════════════════════════════════════════════════════════════
        Q & A
     ════════════════════════════════════════════════════════════════ */
     .qa-wrap {
@@ -1394,7 +1648,7 @@
       <div class="heading">What We'll Cover Today</div>
       <div class="overview-grid">
 
-        <!-- Section I · AI Model Training -->
+        <!-- Section I · Models and Data Security -->
         <div class="overview-card" style="--accent: #1a3a8f;">
           <div class="card-icon-wrap" style="background: rgba(26,58,143,0.09);">
             <!-- CPU chip icon -->
@@ -1420,11 +1674,11 @@
             </svg>
           </div>
           <div class="card-num">Section I</div>
-          <div class="card-title">AI Model Training</div>
+          <div class="card-title">Models and Data Security</div>
           <div class="card-desc">How AI learns, what it remembers, and how that knowledge can be exploited</div>
         </div>
 
-        <!-- Section II · Malicious Attacks -->
+        <!-- Section II · Prompt Injection Security -->
         <div class="overview-card" style="--accent: #b01010;">
           <div class="card-icon-wrap" style="background: rgba(176,16,16,0.08);">
             <!-- Target / crosshair icon -->
@@ -1439,7 +1693,7 @@
             </svg>
           </div>
           <div class="card-num">Section II</div>
-          <div class="card-title">Malicious Attacks</div>
+          <div class="card-title">Prompt Injection Security</div>
           <div class="card-desc">Real-world threats targeting AI systems and the people who use them</div>
         </div>
 
@@ -1465,14 +1719,14 @@
 
 
   <!-- ══════════════════════════════════════════════════════════════
-       Section Divider: AI Model Training
+       Section Divider: Models and Data Security
   ══════════════════════════════════════════════════════════════════ -->
   <div class="slide bg-template" data-section="1" data-index="3">
     <div class="section-divider-wrap">
       <div>
         <div class="section-big-num">01</div>
         <div class="section-accent-bar"></div>
-        <div class="section-big-title">AI Model Training</div>
+        <div class="section-big-title">Models and Data Security</div>
         <div class="section-big-sub">How AI learns — and why that matters for your data</div>
       </div>
     </div>
@@ -1502,7 +1756,7 @@
   ══════════════════════════════════════════════════════════════════ -->
   <div class="slide bg-template" data-section="1" data-index="5">
     <div class="content" style="align-items:center;">
-      <div class="label" style="align-self:flex-start;">Section I · AI Model Training</div>
+      <div class="label" style="align-self:flex-start;">Section I · Models and Data Security</div>
       <div class="heading" style="align-self:flex-start; margin-bottom:20px;">What is an AI Model?</div>
       <div style="display:flex; align-items:center; justify-content:center; gap:48px; flex:1; min-height:0; width:100%; margin-top:120px;">
         <img src="whatis.png" alt="Many approaches to AI models: LLMs, computer vision, transformers, diffusion models, and reinforcement learning"
@@ -1518,7 +1772,7 @@
   ══════════════════════════════════════════════════════════════════ -->
   <div class="slide bg-template" data-section="1" data-index="6">
     <div class="content" style="align-items:center;">
-      <div class="label" style="align-self:flex-start;">Section I · AI Model Training</div>
+      <div class="label" style="align-self:flex-start;">Section I · Models and Data Security</div>
       <div class="heading" style="align-self:flex-start; margin-bottom:20px;">Neural Networks</div>
       <img src="neural3.png" alt="A neural network classifying a handwritten digit: 784 input pixels feed hidden layers that output digits 0–9"
            style="display:block; max-width:100%; max-height:650px; width:auto; border-radius:14px; box-shadow:0 14px 40px rgba(0,0,0,0.28);" />
@@ -1530,7 +1784,7 @@
   ══════════════════════════════════════════════════════════════════ -->
   <div class="slide bg-template" data-section="1" data-index="7">
     <div class="content">
-      <div class="label">Section I · AI Model Training</div>
+      <div class="label">Section I · Models and Data Security</div>
       <div class="heading" style="margin-bottom:16px;">Inspired by Biology</div>
       <div style="display:flex; align-items:center; justify-content:center; gap:56px; flex:1; min-height:0; margin-top:150px;">
         <img src="neu.png" alt="A biological neuron (dendrites, soma, axon, synapse) alongside its mathematical model: weighted inputs summed with a bias and passed through an activation function"
@@ -1546,24 +1800,25 @@
   </div>
 
   <!-- ══════════════════════════════════════════════════════════════
-       Training vs. Inference
+       How do AI Models Think? (placeholder: ARC puzzle intro)
   ══════════════════════════════════════════════════════════════════ -->
   <div class="slide bg-template" data-section="1" data-index="8">
-    <div class="content" style="align-items:center;">
-      <div class="label" style="align-self:flex-start;">Section I · AI Model Training</div>
-      <div class="heading" style="align-self:flex-start; margin-bottom:20px;">Training vs. Inference</div>
-      <img src="training_vs_inference.jpg" alt="Training: many users' labeled images train a model to produce a Trained Model. Inference: a user submits a new image and the trained model predicts the output label, e.g. 'Cat'"
-           style="display:block; max-width:100%; max-height:540px; width:auto; margin-top:60px; border-radius:14px; box-shadow:0 14px 40px rgba(0,0,0,0.28);" />
+    <div class="content">
+      <div class="label">Section I · Models and Data Security</div>
+      <div class="heading">How do AI Models Think?</div>
+      <div style="flex:1; display:flex; align-items:center; justify-content:center; border:3px dashed rgba(26,58,143,0.3); border-radius:20px; font-size:34px; font-style:italic; color:#888;">
+        Simple ARC puzzle introduction here
+      </div>
     </div>
   </div>
 
   <!-- ══════════════════════════════════════════════════════════════
-       How AI Models Learn (click-through process flow)
+       How AI Models are Trained (click-through process flow)
   ══════════════════════════════════════════════════════════════════ -->
   <div class="slide bg-template" data-section="1" data-index="9">
     <div class="content">
-      <div class="label">Section I · AI Model Training</div>
-      <div class="heading">How AI Models Learn</div>
+      <div class="label">Section I · Models and Data Security</div>
+      <div class="heading">How AI Models are Trained</div>
       <div class="process-flow">
 
         <div class="flow-step" data-step style="--flow-color:#1a3a8f;">
@@ -1618,7 +1873,7 @@
   ══════════════════════════════════════════════════════════════════ -->
   <div class="slide bg-template" data-section="1" data-index="10">
     <div class="content" style="align-items:center;">
-      <div class="label" style="align-self:flex-start;">Section I · AI Model Training</div>
+      <div class="label" style="align-self:flex-start;">Section I · Models and Data Security</div>
       <div class="heading" style="align-self:flex-start; margin-bottom:20px;">Models Deployed for Inference</div>
       <img src="models_deployed_inference.png" alt="A deployed AI model is frozen and no longer learning: inputs (images, text, tables) flow into a frozen, locked model that produces inference outputs (classification, sentiment, scores). No training, no updates, no learning — used only for inference."
            style="display:block; max-width:100%; max-height:700px; width:auto; margin-top:0px; border-radius:14px; box-shadow:0 14px 40px rgba(0,0,0,0.28);" />
@@ -1626,11 +1881,166 @@
   </div>
 
   <!-- ══════════════════════════════════════════════════════════════
-       Model Inversion (click-through attack flow)
+       Training vs. Inference
   ══════════════════════════════════════════════════════════════════ -->
   <div class="slide bg-template" data-section="1" data-index="11">
     <div class="content">
-      <div class="label">Section I · AI Model Training</div>
+      <div class="label">Section I · Models and Data Security</div>
+      <div class="heading" style="margin-bottom:20px;">Training vs. Inference</div>
+      <div class="slide-subhead">Training is a massive one-time effort. Inference reuses the frozen model — cheaply, millions of times.</div>
+      <div class="ti-grid">
+
+        <!-- Training: data firehose → network learning → GPU cluster -->
+        <div class="ti-panel ti-train">
+          <div class="ti-head">
+            <span class="ti-tag">Training</span>
+            <span class="ti-title">The model learns from enormous amounts of data</span>
+          </div>
+          <svg class="ti-svg" viewBox="0 0 788 300" role="img" aria-label="Training: streams of data flow into a neural network that predicts, then adjusts its weights, while its error falls and a cluster of GPUs runs at full power">
+            <defs>
+              <filter id="ti-glow-tr" x="-10%" y="-10%" width="120%" height="120%">
+                <feGaussianBlur stdDeviation="2.5" result="b"/>
+                <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+              </filter>
+            </defs>
+            <text class="ti-rl" x="0" y="16">TRAINING DATA</text>
+            <text class="ti-rl ti-tr-fwd" x="422" y="16" text-anchor="middle">PREDICT →</text>
+            <text class="ti-rl ti-tr-bwd" x="422" y="16" text-anchor="middle">← LEARN: ADJUST WEIGHTS</text>
+            <text class="ti-rl" x="612" y="16">ERROR</text>
+            <g class="ti-stream"></g>
+            <g class="ti-net" filter="url(#ti-glow-tr)"></g>
+            <path class="ti-axis" d="M612 34 V206 H784"/>
+            <path class="ti-loss" pathLength="100" d="M616 60 L620 67 L624 73 L628 90 L632 89 L636 103 L640 107 L644 109 L648 121 L652 120 L656 130 L660 130 L664 135 L668 142 L672 150 L676 146 L680 150 L684 156 L688 162 L692 161 L696 161 L700 168 L704 162 L708 170 L712 167 L716 168 L720 169 L724 172 L728 175 L732 173 L736 176 L740 177 L744 177 L748 178 L752 178 L756 178 L760 179 L764 180 L768 181 L772 181 L776 181 L780 182"/>
+            <circle class="ti-loss-dot" r="5" filter="url(#ti-glow-tr)">
+              <animateMotion dur="8s" repeatCount="indefinite" calcMode="linear" keyPoints="0;1;1" keyTimes="0;0.75;1"
+                path="M616 60 L620 67 L624 73 L628 90 L632 89 L636 103 L640 107 L644 109 L648 121 L652 120 L656 130 L660 130 L664 135 L668 142 L672 150 L676 146 L680 150 L684 156 L688 162 L692 161 L696 161 L700 168 L704 162 L708 170 L712 167 L716 168 L720 169 L724 172 L728 175 L732 173 L736 176 L740 177 L744 177 L748 178 L752 178 L756 178 L760 179 L764 180 L768 181 L772 181 L776 181 L780 182"/>
+              <animate attributeName="opacity" dur="8s" repeatCount="indefinite" keyTimes="0;0.92;1" values="1;1;0"/>
+            </circle>
+            <text class="ti-axis-t" x="784" y="224" text-anchor="end">training time →</text>
+            <text class="ti-rl" x="0" y="256">COMPUTE</text>
+            <rect class="ti-meter-bg" x="0" y="266" width="120" height="10" rx="5"/>
+            <rect class="ti-meter" x="0" y="266" width="120" height="10" rx="5"/>
+            <text class="ti-meter-t" x="0" y="296">MAX</text>
+            <g class="ti-gpus" data-count="7"></g>
+            <text class="ti-gpu-more" x="788" y="275" text-anchor="end">× thousands</text>
+          </svg>
+          <div class="ti-stats">
+            <div><div class="ti-stat-k">Data</div><div class="ti-stat-v">Trillions of examples</div></div>
+            <div><div class="ti-stat-k">Compute</div><div class="ti-stat-v">Thousands of GPUs</div></div>
+            <div><div class="ti-stat-k">Time</div><div class="ti-stat-v">Weeks to months</div></div>
+            <div><div class="ti-stat-k">Weights</div><div class="ti-stat-v">Updated constantly</div></div>
+          </div>
+        </div>
+
+        <!-- Inference: one input → one forward pass → one output -->
+        <div class="ti-panel ti-infer">
+          <div class="ti-head">
+            <span class="ti-tag">Inference</span>
+            <span class="ti-title">The trained model answers — it no longer learns</span>
+          </div>
+          <svg class="ti-svg" viewBox="0 0 788 300" role="img" aria-label="Inference: a single input (a photo, a question, an email) passes once through the frozen network and a prediction comes out, using one mostly idle GPU">
+            <defs>
+              <filter id="ti-glow-in" x="-10%" y="-10%" width="120%" height="120%">
+                <feGaussianBlur stdDeviation="2.5" result="b"/>
+                <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+              </filter>
+              <linearGradient id="ti-sky" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#3a7fc4"/><stop offset="1" stop-color="#9fd3f2"/>
+              </linearGradient>
+            </defs>
+            <text class="ti-rl" x="0" y="16">INPUT</text>
+            <g transform="translate(268 3)" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.8">
+              <rect x="0" y="6" width="12" height="9" rx="2" fill="rgba(255,255,255,0.5)" stroke="none"/>
+              <path d="M3 6 V4 a3 3 0 0 1 6 0 V6"/>
+            </g>
+            <text class="ti-rl" x="288" y="16">FORWARD ONLY · WEIGHTS FROZEN</text>
+            <text class="ti-rl" x="612" y="16">OUTPUT</text>
+
+            <g class="ti-cards">
+              <g class="ti-card">
+                <rect class="ti-card-box" x="16" y="70" width="188" height="108" rx="12"/>
+                <rect x="28" y="82" width="164" height="84" rx="8" fill="url(#ti-sky)"/>
+                <path d="M91 121 L95 97 L107 110 Z M129 121 L125 97 L113 110 Z" fill="#f2c08f"/>
+                <circle cx="110" cy="130" r="22" fill="#f2c08f"/>
+                <ellipse cx="102" cy="128" rx="2.6" ry="3.6" fill="#22303f"/>
+                <ellipse cx="118" cy="128" rx="2.6" ry="3.6" fill="#22303f"/>
+                <path d="M107 136 h6 l-3 3 z" fill="#d9776b"/>
+                <path d="M86 137 h14 M120 137 h14" stroke="#8a6a4a" stroke-width="1"/>
+              </g>
+              <g class="ti-card">
+                <rect class="ti-card-box" x="16" y="70" width="188" height="108" rx="12"/>
+                <rect x="30" y="84" width="26" height="18" rx="5" fill="#6fd3ff"/>
+                <path d="M36 101 v7 l7 -7 z" fill="#6fd3ff"/>
+                <text class="ti-card-t" x="30" y="136">What's the capital</text>
+                <text class="ti-card-t" x="30" y="158">of France?</text>
+              </g>
+              <g class="ti-card">
+                <rect class="ti-card-box" x="16" y="70" width="188" height="108" rx="12"/>
+                <rect x="30" y="84" width="26" height="18" rx="3" fill="none" stroke="#ffb36b" stroke-width="2"/>
+                <path d="M30 86 l13 9 l13 -9" fill="none" stroke="#ffb36b" stroke-width="2"/>
+                <text class="ti-card-t" x="30" y="136">YOU WON</text>
+                <text class="ti-card-t" x="30" y="158">$1,000,000!!!</text>
+              </g>
+            </g>
+
+            <g class="ti-fanin">
+              <line class="ti-wire" x1="204" y1="124" x2="283" y2="56"/>
+              <line class="ti-wire" x1="204" y1="124" x2="283" y2="88"/>
+              <line class="ti-wire" x1="204" y1="124" x2="283" y2="120"/>
+              <line class="ti-wire" x1="204" y1="124" x2="283" y2="152"/>
+              <line class="ti-wire" x1="204" y1="124" x2="283" y2="184"/>
+            </g>
+            <g class="ti-net" filter="url(#ti-glow-in)"></g>
+            <g class="ti-fanout">
+              <line class="ti-wire" x1="561" y1="88"  x2="616" y2="124"/>
+              <line class="ti-wire" x1="561" y1="120" x2="616" y2="124"/>
+              <line class="ti-wire" x1="561" y1="152" x2="616" y2="124"/>
+            </g>
+
+            <g class="ti-outs">
+              <g class="ti-out">
+                <rect class="ti-out-box" x="616" y="78" width="168" height="92" rx="12"/>
+                <text class="ti-out-k" x="632" y="102">IMAGE → LABEL</text>
+                <text class="ti-out-v" x="632" y="148">Cat</text>
+              </g>
+              <g class="ti-out">
+                <rect class="ti-out-box" x="616" y="78" width="168" height="92" rx="12"/>
+                <text class="ti-out-k" x="632" y="102">QUESTION → ANSWER</text>
+                <text class="ti-out-v" x="632" y="148">Paris</text>
+              </g>
+              <g class="ti-out">
+                <rect class="ti-out-box" x="616" y="78" width="168" height="92" rx="12"/>
+                <text class="ti-out-k" x="632" y="102">EMAIL → FILTER</text>
+                <text class="ti-out-v" x="632" y="148">Spam</text>
+              </g>
+            </g>
+
+            <text class="ti-rl" x="0" y="256">COMPUTE</text>
+            <rect class="ti-meter-bg" x="0" y="266" width="120" height="10" rx="5"/>
+            <rect class="ti-meter" x="0" y="266" width="14" height="10" rx="5"/>
+            <text class="ti-meter-t" x="0" y="296">LOW</text>
+            <g class="ti-gpus" data-count="1"></g>
+            <text class="ti-gpu-note" x="226" y="266">One GPU is plenty</text>
+            <text class="ti-gpu-note-s" x="226" y="286">small models even run on a phone</text>
+          </svg>
+          <div class="ti-stats">
+            <div><div class="ti-stat-k">Data</div><div class="ti-stat-v">One input at a time</div></div>
+            <div><div class="ti-stat-k">Compute</div><div class="ti-stat-v">A fraction — even a phone</div></div>
+            <div><div class="ti-stat-k">Time</div><div class="ti-stat-v">Milliseconds to seconds</div></div>
+            <div><div class="ti-stat-k">Weights</div><div class="ti-stat-v">Frozen — no learning</div></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════
+       Model Inversion (click-through attack flow)
+  ══════════════════════════════════════════════════════════════════ -->
+  <div class="slide bg-template" data-section="1" data-index="12">
+    <div class="content">
+      <div class="label">Section I · Models and Data Security</div>
       <div class="heading" style="color:#8b0000;">Model Inversion Attack</div>
       <div class="slide-subhead">A bad actor can reverse-engineer private training data — here's how:</div>
       <div class="process-flow">
@@ -1676,9 +2086,9 @@
   <!-- ══════════════════════════════════════════════════════════════
        Response Mining
   ══════════════════════════════════════════════════════════════════ -->
-  <div class="slide bg-template" data-section="1" data-index="12">
+  <div class="slide bg-template" data-section="1" data-index="13">
     <div class="content" style="align-items:center;">
-      <div class="label" style="align-self:flex-start;">Section I · AI Model Training</div>
+      <div class="label" style="align-self:flex-start;">Section I · Models and Data Security</div>
       <div class="heading" style="align-self:flex-start; margin-bottom:20px;">Response Mining</div>
       <img src="response_mining.png" alt="Response mining: sensitive records (passwords, credit card and SSN numbers) stored behind a locked database are absorbed into an LLM during training; an attacker repeatedly queries the deployed model and reconstructs the private data (e.g. a password 'hunter2', card number, and SSN) from its responses."
            style="display:block; max-width:100%; max-height:680px; width:auto; margin-top:0px; border-radius:14px; box-shadow:0 14px 40px rgba(0,0,0,0.28);" />
@@ -1688,7 +2098,7 @@
   <!-- ══════════════════════════════════════════════════════════════
        Section I Takeaways
   ══════════════════════════════════════════════════════════════════ -->
-  <div class="slide bg-template" data-section="1" data-index="13" id="slide-8">
+  <div class="slide bg-template" data-section="1" data-index="14" id="slide-8">
     <div class="content">
       <div class="label">Section I · Takeaways</div>
       <div class="heading">What This Means for You</div>
@@ -1707,14 +2117,14 @@
 
 
   <!-- ══════════════════════════════════════════════════════════════
-       Section Divider: Malicious Attacks
+       Section Divider: Prompt Injection Security
   ══════════════════════════════════════════════════════════════════ -->
-  <div class="slide bg-template" data-section="2" data-index="14">
+  <div class="slide bg-template" data-section="2" data-index="15">
     <div class="section-divider-wrap">
       <div>
         <div class="section-big-num" style="color:rgba(176,16,16,0.07);">02</div>
         <div class="section-accent-bar" style="background:#b01010;"></div>
-        <div class="section-big-title">Malicious Attacks</div>
+        <div class="section-big-title">Prompt Injection Security</div>
         <div class="section-big-sub">Real-world threats targeting AI systems — and the people who use them</div>
       </div>
     </div>
@@ -1723,7 +2133,7 @@
   <!-- ══════════════════════════════════════════════════════════════
        Interactive Question: Resume Ranking
   ══════════════════════════════════════════════════════════════════ -->
-  <div class="slide bg-template" data-section="2" data-index="15">
+  <div class="slide bg-template" data-section="2" data-index="16">
     <div class="content">
       <div class="label">Interactive Question</div>
       <div class="heading" style="font-size:44px; margin-bottom:16px;">Which resume ranks higher?</div>
@@ -1748,9 +2158,9 @@
   <!-- ══════════════════════════════════════════════════════════════
        Resume A vs Resume B
   ══════════════════════════════════════════════════════════════════ -->
-  <div class="slide bg-template" data-section="2" data-index="16">
+  <div class="slide bg-template" data-section="2" data-index="17">
     <div class="content">
-      <div class="label">Section II · Malicious Attacks</div>
+      <div class="label">Section II · Prompt Injection Security</div>
       <div class="heading" style="font-size:44px; margin-bottom:14px;">The Resume Attack</div>
       <div class="resume-row">
 
@@ -1818,9 +2228,9 @@
   <!-- ══════════════════════════════════════════════════════════════
        Anatomy of an AI Prompt
   ══════════════════════════════════════════════════════════════════ -->
-  <div class="slide bg-template" data-section="2" data-index="17">
+  <div class="slide bg-template" data-section="2" data-index="18">
     <div class="content">
-      <div class="label">Section II · Malicious Attacks</div>
+      <div class="label">Section II · Prompt Injection Security</div>
       <div class="heading" style="font-size:46px; margin-bottom:14px;">What the AI Actually Processes</div>
       <div class="prompt-anatomy">
 
@@ -1866,9 +2276,9 @@
   <!-- ══════════════════════════════════════════════════════════════
        Prompt Injection
   ══════════════════════════════════════════════════════════════════ -->
-  <div class="slide bg-template" data-section="2" data-index="18">
+  <div class="slide bg-template" data-section="2" data-index="19">
     <div class="content">
-      <div class="label">Section II · Malicious Attacks</div>
+      <div class="label">Section II · Prompt Injection Security</div>
       <div class="heading" style="font-size:46px; margin-bottom:6px;">Prompt Injection</div>
       <div class="slide-subhead" style="margin-top:15px; margin-bottom:18px;">Embedding hidden instructions in content that the AI will process</div>
       <div class="injection-grid">
@@ -1910,9 +2320,9 @@
   <!-- ══════════════════════════════════════════════════════════════
        Prompt Injection with Agentic AI
   ══════════════════════════════════════════════════════════════════ -->
-  <div class="slide bg-template" data-section="2" data-index="19">
+  <div class="slide bg-template" data-section="2" data-index="20">
     <div class="content" style="align-items:center;">
-      <div class="label" style="align-self:flex-start;">Section II · Malicious Attacks</div>
+      <div class="label" style="align-self:flex-start;">Section II · Prompt Injection Security</div>
       <div class="heading" style="align-self:flex-start; margin-bottom:20px;">Prompt Injection with Agentic AI</div>
       <img src="prompt_injection_agentic.png" alt="Prompt injection against an agentic AI: a user asks the agent to analyze their spending, but a hidden injected prompt tells the agent to ignore previous instructions and access the user's bank account. The agent, which has tools and access to web search, documents, and a private bank account, exfiltrates sensitive data — account number, balance, and transactions."
            style="display:block; max-width:100%; max-height:700px; width:auto; margin-top:0px; border-radius:14px; box-shadow:0 14px 40px rgba(0,0,0,0.28);" />
@@ -1922,7 +2332,7 @@
   <!-- ══════════════════════════════════════════════════════════════
        Section II Takeaways
   ══════════════════════════════════════════════════════════════════ -->
-  <div class="slide bg-template" data-section="2" data-index="20">
+  <div class="slide bg-template" data-section="2" data-index="21">
     <div class="content">
       <div class="label">Section II · Takeaways</div>
       <div class="heading">What This Means for You</div>
@@ -1943,7 +2353,7 @@
   <!-- ══════════════════════════════════════════════════════════════
        Section Divider: Risk Classification
   ══════════════════════════════════════════════════════════════════ -->
-  <div class="slide bg-template" data-section="3" data-index="21">
+  <div class="slide bg-template" data-section="3" data-index="22">
     <div class="section-divider-wrap">
       <div>
         <div class="section-big-num" style="color:rgba(26,122,26,0.07);">03</div>
@@ -1957,7 +2367,7 @@
   <!-- ══════════════════════════════════════════════════════════════
        Interactive Question: Shadow AI
   ══════════════════════════════════════════════════════════════════ -->
-  <div class="slide bg-template" data-section="3" data-index="22">
+  <div class="slide bg-template" data-section="3" data-index="23">
     <div class="content">
       <div class="label">Interactive Question</div>
       <div class="heading" style="font-size:44px; margin-bottom:16px;">Who's the bigger shadow AI risk?</div>
@@ -1982,7 +2392,7 @@
   <!-- ══════════════════════════════════════════════════════════════
        Interactive: Classify Data Risk
   ══════════════════════════════════════════════════════════════════ -->
-  <div class="slide bg-template" data-section="3" data-index="23">
+  <div class="slide bg-template" data-section="3" data-index="24">
     <div class="content">
       <div class="label">Section III · Risk Classification</div>
       <div class="heading" style="font-size:46px; margin-bottom:6px;">Classify the Risk Level</div>
@@ -2084,7 +2494,7 @@
   <!-- ══════════════════════════════════════════════════════════════
        Approved Services per Risk Tier
   ══════════════════════════════════════════════════════════════════ -->
-  <div class="slide bg-template" data-section="3" data-index="24">
+  <div class="slide bg-template" data-section="3" data-index="25">
     <div class="content">
       <div class="label">Section III · Risk Classification</div>
       <div class="heading" style="font-size:46px; margin-bottom:14px;">Match the Tool to the Data</div>
@@ -2138,7 +2548,7 @@
   <!-- ══════════════════════════════════════════════════════════════
        Locally Hosted Models: NVIDIA DGX Spark
   ══════════════════════════════════════════════════════════════════ -->
-  <div class="slide bg-template" data-section="3" data-index="25">
+  <div class="slide bg-template" data-section="3" data-index="26">
     <div class="content">
       <div class="label">Section III · Risk Classification</div>
       <div class="heading" style="font-size:46px; margin-bottom:10px;">Local AI on Your Desk</div>
@@ -2201,7 +2611,7 @@
   <!-- ══════════════════════════════════════════════════════════════
        Section III Takeaways
   ══════════════════════════════════════════════════════════════════ -->
-  <div class="slide bg-template" data-section="3" data-index="26">
+  <div class="slide bg-template" data-section="3" data-index="27">
     <div class="content">
       <div class="label">Section III · Takeaways</div>
       <div class="heading">What This Means for You</div>
@@ -2221,15 +2631,15 @@
   <!-- ══════════════════════════════════════════════════════════════
        Q & A
   ══════════════════════════════════════════════════════════════════ -->
-  <div class="slide bg-template" data-section="4" data-index="27">
+  <div class="slide bg-template" data-section="4" data-index="28">
     <div class="qa-wrap">
       <div class="qa-bg-mark">?</div>
       <div class="qa-label">Conclusion</div>
       <div class="qa-title">Questions &amp; Answers</div>
-      <div class="qa-subtitle">We covered AI Model Training, Malicious Attacks, and Risk Classification — what's on your mind?</div>
+      <div class="qa-subtitle">We covered Models and Data Security, Prompt Injection Security, and Risk Classification — what's on your mind?</div>
       <div class="qa-chips">
-        <div class="qa-chip">Section I · AI Model Training</div>
-        <div class="qa-chip">Section II · Malicious Attacks</div>
+        <div class="qa-chip">Section I · Models and Data Security</div>
+        <div class="qa-chip">Section II · Prompt Injection Security</div>
         <div class="qa-chip">Section III · Risk Classification</div>
       </div>
     </div>
@@ -2238,7 +2648,7 @@
   <!-- ══════════════════════════════════════════════════════════════
        Contact Information
   ══════════════════════════════════════════════════════════════════ -->
-  <div class="slide bg-template" data-section="4" data-index="28">
+  <div class="slide bg-template" data-section="4" data-index="29">
     <div class="content">
       <div class="label">Thank You</div>
       <div class="heading">Get in Touch</div>
@@ -2406,6 +2816,67 @@
     const dx = e.changedTouches[0].clientX - tx;
     if (Math.abs(dx) > 48) { dx < 0 ? next() : prev(); }
   });
+
+  /* ── Training vs. Inference graphics ────────────────────────── */
+  (function buildTrainInfer() {
+    const NS = 'http://www.w3.org/2000/svg';
+    const X  = [292, 382, 472, 552];
+    const Y  = [[56, 88, 120, 152, 184],
+                [40, 72, 104, 136, 168, 200],
+                [40, 72, 104, 136, 168, 200],
+                [88, 120, 152]];
+    const el = (tag, attrs, parent) => {
+      const e = document.createElementNS(NS, tag);
+      for (const k in attrs) e.setAttribute(k, attrs[k]);
+      return parent ? parent.appendChild(e) : e;
+    };
+
+    /* Same network on both sides: edges first so nodes sit on top */
+    document.querySelectorAll('.ti-net').forEach(g => {
+      for (let l = 0; l < 3; l++) {
+        Y[l].forEach(y1 => Y[l + 1].forEach(y2 => {
+          const line = el('line', { x1: X[l], y1, x2: X[l + 1], y2, class: `ti-e ti-e${l}` }, g);
+          line.style.setProperty('--w', (0.6 + Math.random() * 1.6).toFixed(2));
+        }));
+      }
+      Y.forEach((ys, l) => ys.forEach(y => {
+        el('circle', { cx: X[l], cy: y, r: l === 0 || l === 3 ? 9 : 8, class: `ti-n ti-n${l}` }, g);
+      }));
+    });
+
+    /* Training data: chips streaming along a lane into each input node */
+    const glyphs = ['Aa', '01', '</>', '{ }', 'img'];
+    document.querySelectorAll('.ti-stream').forEach(g => {
+      Y[0].forEach((y, lane) => {
+        el('line', { x1: 0, y1: y, x2: 280, y2: y, class: 'ti-lane' }, g);
+        for (let k = 0; k < 4; k++) {
+          const chip = el('g', { class: (lane + k) % 3 ? 'ti-chip' : 'ti-chip alt' }, g);
+          const offset = (k * 0.5 + lane * 0.17) % 2;
+          chip.style.animationDelay = `-${offset.toFixed(2)}s`;
+          chip.style.transform = `translateX(${(offset / 2 * 270).toFixed(0)}px)`;  // static frame for print
+          el('rect', { x: -15, y: y - 9, width: 30, height: 18, rx: 4 }, chip);
+          el('text', { x: 0, y: y + 3.5, 'text-anchor': 'middle' }, chip).textContent = glyphs[(lane + k) % glyphs.length];
+        }
+      });
+    });
+
+    /* GPUs: a row of chips with activity bars and a status LED */
+    document.querySelectorAll('.ti-gpus').forEach(g => {
+      const busy = !!g.closest('.ti-train');  // inference bars stay in sync with the forward pass
+      for (let i = 0; i < +g.dataset.count; i++) {
+        const x = 148 + i * 72;
+        el('rect', { x, y: 244, width: 60, height: 46, rx: 7, class: 'ti-gpu-body' }, g);
+        for (let j = 0; j < 4; j++) {
+          const bar = el('rect', { x: x + 9 + j * 11, y: 256, width: 7, height: 26, rx: 1.5, class: 'ti-gpu-bar' }, g);
+          if (busy) {
+            bar.style.animationDelay = `-${(Math.random() * 0.7).toFixed(2)}s`;
+            bar.style.animationDuration = `${(0.45 + Math.random() * 0.4).toFixed(2)}s`;
+          }
+        }
+        el('circle', { cx: x + 52, cy: 251, r: 2.5, class: 'ti-gpu-led' }, g);
+      }
+    });
+  })();
 
   /* ── Init ────────────────────────────────────────────────────── */
   updateChrome();
