@@ -8,7 +8,7 @@ Nathan Wiggins · Bert Baumgaertner · Lucas Marshall
 
 ## Presenters
 Nathan Wiggins, Data Scientist, Southern Utah University (photo: wiggins.jpg)
-Bert Baumgaertner, Director of AI Ethics and Professor of Philosophy, University of Idaho (photo: Bert.webp)
+Bert Baumgaertner, Founder of the AI Ethics & Inquiry Outfit and Professor of Philosophy, University of Idaho (photo: Bert.webp)
 Lucas Marshall, Research Advancement Administrator, Arizona State University (photo: marshall.jpeg)
 
 ## Presentation Overview
@@ -34,9 +34,6 @@ Two images side by side. Left: whatis.png — the major families of AI models (L
 ## Inspired by Biology
 Two-column layout. Left: neu.png — a real biological neuron (dendrites, soma, axon, synapse) alongside its mathematical model. Right (stacked): neural2.png — a single artificial neuron (inputs X1/X2 × weights W1/W2, summed with bias → output y); neural1.jpg — a fully connected network (input layer, two hidden layers, output layer).
 
-## How do AI Models Think?
-Placeholder: "Simple ARC puzzle introduction here"
-
 ## How AI Models are Trained
 (Visually appealing process flow animations that show the AI model training process, that the user can click on to show the steps in the process one by one)
 
@@ -48,6 +45,14 @@ Subhead: Training is a massive one-time effort. Inference reuses the frozen mode
 Two side-by-side animated graphics (dark navy panels) that mirror each other — same network, very different jobs:
 - Training (orange): "The model learns from enormous amounts of data." Streams of data chips pour into a neural network; a gold forward pass ("Predict →") is followed by an orange backpropagation wave ("← Learn: adjust weights"); an error curve falls over training time; a row of GPUs runs flat out (compute meter at MAX, "× thousands"). Stats: Data — Trillions of examples · Compute — Thousands of GPUs · Time — Weeks to months · Weights — Updated constantly.
 - Inference (blue): "The trained model answers — it no longer learns." One input at a time (a cat photo, "What's the capital of France?", a "YOU WON $1,000,000!!!" email) passes once, forward only, through the same network with frozen weights, and a prediction pops out (Cat / Paris / Spam). A single mostly idle GPU (compute meter LOW): "One GPU is plenty — small models even run on a phone." Stats: Data — One input at a time · Compute — A fraction, even a phone · Time — Milliseconds to seconds · Weights — Frozen, no learning.
+
+## How AI Writes: One Word at a Time
+Subhead: Click a word to choose it. The model re-reads everything, then predicts again — that loop is called auto-regression.
+Interactive dark-navy panels (same style as Training vs. Inference):
+- Text so far: the prompt "Research data should be" as word chips, with a blinking cursor.
+- What comes next?: clickable bars showing the (illustrative) probability of each candidate next word — e.g. stored 34%, protected 27%, shared 16%, encrypted 11%, deleted 7%, public 5%. Clicking a word flies it into the sentence; the model "re-reads" every word, then shows a new distribution. Buttons: Most likely · Sample (weighted random) · Reset. Ends when "." is chosen: "The model predicts a special end token — and stops."
+- The loop: 1 Read all the text so far → 2 Score every possible next word → 3 Pick one → 4 Add it to the text — and repeat (each step lights up as it happens, with a step counter).
+- Note: Likely isn't the same as true — or safe. Real models score ~100,000 word pieces (tokens) each step, and sampling means unlikely ones still get picked.
 
 ## Model Inversion
 (Visually appealing process flow animations that demonstrates how a bad actor might try to gain access to the raw data used to train the model)
@@ -86,6 +91,9 @@ Key: Monitor what is being processed by your models
 -Be careful with agentic systems in auto-mode when dealing with sensitive data
 (Classic slide with icons)
 
+## Interactive Game
+Placeholder: "Simple ARC puzzle introduction here"
+
 # Section 3
 
 ## 03 Risk Classification
@@ -118,5 +126,5 @@ Key: Standardized guidance is key for maintaining security
 
 ## Contact Information
 Nathan Wiggins: nathanwiggins@suu.edu (photo: wiggins.jpg)
-Bert Baumgaertner, Director of AI Ethics and Professor of Philosophy, University of Idaho (email: TBD) (photo: Bert.webp)
+Bert Baumgaertner, Founder of the AI Ethics & Inquiry Outfit and Professor of Philosophy, University of Idaho (email: TBD) (photo: Bert.webp)
 Lucas Marshall, Research Advancement Administrator, Arizona State University (email: TBD) (photo: marshall.jpeg)

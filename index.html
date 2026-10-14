@@ -1336,6 +1336,193 @@
     }
 
     /* ════════════════════════════════════════════════════════════════
+       Next-word prediction (interactive auto-regression demo)
+    ════════════════════════════════════════════════════════════════ */
+    .nt {
+      position: relative;
+      flex: 1;
+      min-height: 0;
+      display: grid;
+      grid-template-columns: 1fr 500px;
+      grid-template-rows: auto 1fr;
+      gap: 18px 24px;
+    }
+
+    .nt-panel {
+      border-radius: 18px;
+      padding: 16px 24px;
+      color: #fff;
+      background: radial-gradient(circle at 30% 30%, rgba(80, 180, 255, 0.12), transparent 60%),
+                  linear-gradient(160deg, #13295b 0%, #0a1a3d 100%);
+      box-shadow: 0 18px 44px rgba(10, 26, 61, 0.35);
+    }
+
+    .nt-text { grid-column: 1 / -1; }
+
+    .nt-k {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #6fd3ff;
+    }
+
+    .nt-k-sub {
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      text-transform: none;
+      color: rgba(255, 255, 255, 0.45);
+      margin-left: 12px;
+    }
+
+    /* Text so far */
+    .nt-sentence {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px 10px;
+      margin-top: 10px;
+      min-height: 50px;
+    }
+
+    .nt-chip {
+      font-size: 30px;
+      font-weight: 700;
+      padding: 4px 14px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      color: rgba(255, 255, 255, 0.85);
+      transition: background 0.25s, box-shadow 0.25s;
+    }
+
+    .nt-chip.is-gen      { background: rgba(111, 211, 255, 0.18); border-color: #6fd3ff; color: #fff; }
+    .nt-chip.is-new      { animation: nt-pop 0.4s cubic-bezier(0.3, 1.6, 0.5, 1); }
+    .nt-chip.is-reading  { background: rgba(255, 212, 138, 0.28); box-shadow: 0 0 18px rgba(255, 212, 138, 0.6); }
+    .nt-ghost            { position: absolute; z-index: 5; margin: 0; pointer-events: none; transform-origin: 0 0; }
+
+    .nt-cursor {
+      width: 4px;
+      height: 40px;
+      border-radius: 2px;
+      background: #6fd3ff;
+      animation: nt-blink 1s steps(2) infinite;
+    }
+
+    @keyframes nt-pop   { from { transform: scale(0.6); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    @keyframes nt-blink { 50% { opacity: 0; } }
+
+    /* Probability distribution */
+    .nt-dist { display: flex; flex-direction: column; }
+
+    .nt-dist-head { display: flex; justify-content: space-between; align-items: center; }
+
+    .nt-actions { display: flex; gap: 10px; }
+
+    .nt-btn {
+      font: inherit;
+      font-size: 15px;
+      font-weight: 700;
+      color: #0a1a3d;
+      background: #6fd3ff;
+      border: 1px solid #6fd3ff;
+      border-radius: 8px;
+      padding: 7px 14px;
+      cursor: pointer;
+      transition: background 0.2s, opacity 0.2s;
+    }
+
+    .nt-btn:hover    { background: #a8e6ff; }
+    .nt-btn:disabled { opacity: 0.35; cursor: default; }
+    .nt-btn-ghost    { color: #6fd3ff; background: transparent; }
+    .nt-btn-ghost:hover { background: rgba(111, 211, 255, 0.15); }
+
+    .nt-rows { display: flex; flex-direction: column; gap: 6px; margin-top: 12px; }
+
+    .nt-row {
+      display: grid;
+      grid-template-columns: 210px 1fr 64px;
+      align-items: center;
+      gap: 16px;
+      height: 36px;
+      padding: 0 12px;
+      font: inherit;
+      color: #fff;
+      text-align: left;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid transparent;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s, opacity 0.3s;
+    }
+
+    .nt-row:hover        { background: rgba(111, 211, 255, 0.12); border-color: rgba(111, 211, 255, 0.5); }
+    .nt-row.is-picked    { background: rgba(111, 211, 255, 0.3); border-color: #6fd3ff; }
+    .nt-rows.is-busy .nt-row:not(.is-picked) { opacity: 0.3; }
+
+    .nt-word  { font-size: 22px; font-weight: 700; }
+    .nt-track { height: 14px; border-radius: 7px; background: rgba(255, 255, 255, 0.08); overflow: hidden; }
+    .nt-bar   {
+      display: block;
+      width: 0;
+      height: 100%;
+      border-radius: 7px;
+      background: linear-gradient(90deg, #2f7fd0, #6fd3ff);
+      transition: width 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .nt-row.is-top .nt-bar { background: linear-gradient(90deg, #6fd3ff, #d2f3ff); box-shadow: 0 0 12px rgba(111, 211, 255, 0.6); }
+    .nt-pct   { font-size: 20px; font-weight: 700; text-align: right; color: #6fd3ff; }
+
+    .nt-end {
+      margin-top: 12px;
+      padding: 18px 20px;
+      border-radius: 12px;
+      border: 1px dashed rgba(111, 211, 255, 0.5);
+      font-size: 22px;
+      line-height: 1.4;
+      color: rgba(255, 255, 255, 0.85);
+    }
+
+    /* The loop */
+    .nt-steps { list-style: none; display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
+
+    .nt-steps li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 7px 12px;
+      font-size: 19px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.45);
+      border: 1px solid transparent;
+      border-radius: 10px;
+      transition: background 0.25s, border-color 0.25s, color 0.25s;
+    }
+
+    .nt-steps li span {
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      font-size: 14px;
+      background: rgba(255, 255, 255, 0.1);
+      transition: background 0.25s, color 0.25s;
+    }
+
+    .nt-steps li.is-on      { color: #fff; background: rgba(111, 211, 255, 0.14); border-color: rgba(111, 211, 255, 0.6); }
+    .nt-steps li.is-on span { background: #6fd3ff; color: #0a1a3d; }
+
+    .nt-step-no { color: #fff; font-size: 18px; letter-spacing: 0; }
+
+    .nt-note { margin-top: 12px; font-size: 16px; line-height: 1.4; color: #ffd48a; }
+
+    /* ════════════════════════════════════════════════════════════════
        Q & A
     ════════════════════════════════════════════════════════════════ */
     .qa-wrap {
@@ -1624,7 +1811,7 @@
         <div class="presenter-card">
           <img src="Bert.webp" alt="Bert Baumgaertner" class="photo-circle" style="object-fit:cover;" />
           <div class="presenter-name">Bert Baumgaertner</div>
-          <div class="presenter-title">Director of AI Ethics and Professor of Philosophy</div>
+          <div class="presenter-title">Founder of the AI Ethics &amp; Inquiry Outfit and Professor of Philosophy</div>
           <div class="presenter-inst">University of Idaho</div>
         </div>
 
@@ -1800,22 +1987,9 @@
   </div>
 
   <!-- ══════════════════════════════════════════════════════════════
-       How do AI Models Think? (placeholder: ARC puzzle intro)
-  ══════════════════════════════════════════════════════════════════ -->
-  <div class="slide bg-template" data-section="1" data-index="8">
-    <div class="content">
-      <div class="label">Section I · Models and Data Security</div>
-      <div class="heading">How do AI Models Think?</div>
-      <div style="flex:1; display:flex; align-items:center; justify-content:center; border:3px dashed rgba(26,58,143,0.3); border-radius:20px; font-size:34px; font-style:italic; color:#888;">
-        Simple ARC puzzle introduction here
-      </div>
-    </div>
-  </div>
-
-  <!-- ══════════════════════════════════════════════════════════════
        How AI Models are Trained (click-through process flow)
   ══════════════════════════════════════════════════════════════════ -->
-  <div class="slide bg-template" data-section="1" data-index="9">
+  <div class="slide bg-template" data-section="1" data-index="8">
     <div class="content">
       <div class="label">Section I · Models and Data Security</div>
       <div class="heading">How AI Models are Trained</div>
@@ -1871,7 +2045,7 @@
   <!-- ══════════════════════════════════════════════════════════════
        Models Deployed for Inference
   ══════════════════════════════════════════════════════════════════ -->
-  <div class="slide bg-template" data-section="1" data-index="10">
+  <div class="slide bg-template" data-section="1" data-index="9">
     <div class="content" style="align-items:center;">
       <div class="label" style="align-self:flex-start;">Section I · Models and Data Security</div>
       <div class="heading" style="align-self:flex-start; margin-bottom:20px;">Models Deployed for Inference</div>
@@ -1883,7 +2057,7 @@
   <!-- ══════════════════════════════════════════════════════════════
        Training vs. Inference
   ══════════════════════════════════════════════════════════════════ -->
-  <div class="slide bg-template" data-section="1" data-index="11">
+  <div class="slide bg-template" data-section="1" data-index="10">
     <div class="content">
       <div class="label">Section I · Models and Data Security</div>
       <div class="heading" style="margin-bottom:20px;">Training vs. Inference</div>
@@ -2031,6 +2205,44 @@
           </div>
         </div>
 
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════
+       Next-Word Prediction (interactive auto-regression demo)
+  ══════════════════════════════════════════════════════════════════ -->
+  <div class="slide bg-template" data-section="1" data-index="11">
+    <div class="content">
+      <div class="label">Section I · Models and Data Security</div>
+      <div class="heading" style="margin-bottom:20px;">How AI Writes: One Word at a Time</div>
+      <div class="slide-subhead">Click a word to choose it. The model re-reads everything, then predicts again — that loop is called <em>auto-regression</em>.</div>
+      <div class="nt" id="nt">
+        <div class="nt-panel nt-text">
+          <div class="nt-k">Text so far</div>
+          <div class="nt-sentence"></div>
+        </div>
+        <div class="nt-panel nt-dist">
+          <div class="nt-dist-head">
+            <div class="nt-k">What comes next?<span class="nt-k-sub">model's probability for each word (illustrative)</span></div>
+            <div class="nt-actions">
+              <button class="nt-btn" data-nt="top">Most likely</button>
+              <button class="nt-btn" data-nt="sample">🎲 Sample</button>
+              <button class="nt-btn nt-btn-ghost" data-nt="reset">↺ Reset</button>
+            </div>
+          </div>
+          <div class="nt-rows"></div>
+        </div>
+        <div class="nt-panel nt-loop">
+          <div class="nt-k">The loop <span>Step <span class="nt-step-no">0</span></span></div>
+          <ol class="nt-steps">
+            <li><span>1</span>Read all the text so far</li>
+            <li><span>2</span>Score every possible next word</li>
+            <li><span>3</span>Pick one</li>
+            <li><span>4</span>Add it to the text — and repeat</li>
+          </ol>
+          <div class="nt-note">Likely isn't the same as true — or safe. Real models score ~100,000 word pieces (tokens) each step, and sampling means unlikely ones still get picked.</div>
+        </div>
       </div>
     </div>
   </div>
@@ -2351,9 +2563,22 @@
 
 
   <!-- ══════════════════════════════════════════════════════════════
+       Interactive Game (placeholder: ARC puzzle intro)
+  ══════════════════════════════════════════════════════════════════ -->
+  <div class="slide bg-template" data-section="2" data-index="22">
+    <div class="content">
+      <div class="label">Section II · Prompt Injection Security</div>
+      <div class="heading">Interactive Game</div>
+      <div style="flex:1; display:flex; align-items:center; justify-content:center; border:3px dashed rgba(26,58,143,0.3); border-radius:20px; font-size:34px; font-style:italic; color:#888;">
+        Simple ARC puzzle introduction here
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════
        Section Divider: Risk Classification
   ══════════════════════════════════════════════════════════════════ -->
-  <div class="slide bg-template" data-section="3" data-index="22">
+  <div class="slide bg-template" data-section="3" data-index="23">
     <div class="section-divider-wrap">
       <div>
         <div class="section-big-num" style="color:rgba(26,122,26,0.07);">03</div>
@@ -2367,7 +2592,7 @@
   <!-- ══════════════════════════════════════════════════════════════
        Interactive Question: Shadow AI
   ══════════════════════════════════════════════════════════════════ -->
-  <div class="slide bg-template" data-section="3" data-index="23">
+  <div class="slide bg-template" data-section="3" data-index="24">
     <div class="content">
       <div class="label">Interactive Question</div>
       <div class="heading" style="font-size:44px; margin-bottom:16px;">Who's the bigger shadow AI risk?</div>
@@ -2392,7 +2617,7 @@
   <!-- ══════════════════════════════════════════════════════════════
        Interactive: Classify Data Risk
   ══════════════════════════════════════════════════════════════════ -->
-  <div class="slide bg-template" data-section="3" data-index="24">
+  <div class="slide bg-template" data-section="3" data-index="25">
     <div class="content">
       <div class="label">Section III · Risk Classification</div>
       <div class="heading" style="font-size:46px; margin-bottom:6px;">Classify the Risk Level</div>
@@ -2494,7 +2719,7 @@
   <!-- ══════════════════════════════════════════════════════════════
        Approved Services per Risk Tier
   ══════════════════════════════════════════════════════════════════ -->
-  <div class="slide bg-template" data-section="3" data-index="25">
+  <div class="slide bg-template" data-section="3" data-index="26">
     <div class="content">
       <div class="label">Section III · Risk Classification</div>
       <div class="heading" style="font-size:46px; margin-bottom:14px;">Match the Tool to the Data</div>
@@ -2548,7 +2773,7 @@
   <!-- ══════════════════════════════════════════════════════════════
        Locally Hosted Models: NVIDIA DGX Spark
   ══════════════════════════════════════════════════════════════════ -->
-  <div class="slide bg-template" data-section="3" data-index="26">
+  <div class="slide bg-template" data-section="3" data-index="27">
     <div class="content">
       <div class="label">Section III · Risk Classification</div>
       <div class="heading" style="font-size:46px; margin-bottom:10px;">Local AI on Your Desk</div>
@@ -2611,7 +2836,7 @@
   <!-- ══════════════════════════════════════════════════════════════
        Section III Takeaways
   ══════════════════════════════════════════════════════════════════ -->
-  <div class="slide bg-template" data-section="3" data-index="27">
+  <div class="slide bg-template" data-section="3" data-index="28">
     <div class="content">
       <div class="label">Section III · Takeaways</div>
       <div class="heading">What This Means for You</div>
@@ -2631,7 +2856,7 @@
   <!-- ══════════════════════════════════════════════════════════════
        Q & A
   ══════════════════════════════════════════════════════════════════ -->
-  <div class="slide bg-template" data-section="4" data-index="28">
+  <div class="slide bg-template" data-section="4" data-index="29">
     <div class="qa-wrap">
       <div class="qa-bg-mark">?</div>
       <div class="qa-label">Conclusion</div>
@@ -2648,7 +2873,7 @@
   <!-- ══════════════════════════════════════════════════════════════
        Contact Information
   ══════════════════════════════════════════════════════════════════ -->
-  <div class="slide bg-template" data-section="4" data-index="29">
+  <div class="slide bg-template" data-section="4" data-index="30">
     <div class="content">
       <div class="label">Thank You</div>
       <div class="heading">Get in Touch</div>
@@ -2668,7 +2893,7 @@
         <div class="contact-card">
           <img src="Bert.webp" alt="Bert Baumgaertner" class="contact-avatar" style="object-fit:cover;" />
           <div class="contact-name">Bert Baumgaertner</div>
-          <div class="contact-title">Director of AI Ethics and Professor of Philosophy</div>
+          <div class="contact-title">Founder of the AI Ethics &amp; Inquiry Outfit and Professor of Philosophy</div>
           <div class="contact-inst">University of Idaho</div>
         </div>
 
@@ -2876,6 +3101,174 @@
         el('circle', { cx: x + 52, cy: 251, r: 2.5, class: 'ti-gpu-led' }, g);
       }
     });
+  })();
+
+  /* ── Next-word prediction (auto-regression demo) ────────────── */
+  (function nextWordDemo() {
+    const root = document.getElementById('nt');
+    if (!root) return;
+
+    const PROMPT = ['Research', 'data', 'should', 'be'];
+    /* Illustrative distributions: state → [word, probability %, next state] */
+    const NT = {
+      start:     [['stored', 34, 'stored'], ['protected', 27, 'protected'], ['shared', 16, 'shared'],
+                  ['encrypted', 11, 'encrypted'], ['deleted', 7, 'deleted'], ['public', 5, 'public']],
+      stored:    [['securely', 46, 'adv'], ['on', 24, 'on'], ['in', 19, 'in'], ['forever', 11, 'adv']],
+      protected: [['from', 48, 'from'], ['at', 30, 'at'], ['by', 22, 'by']],
+      shared:    [['only', 42, 'only'], ['with', 37, 'with'], ['openly', 21, 'adv']],
+      encrypted: [['at', 52, 'at'], ['before', 31, 'before'], ['and', 17, 'and']],
+      deleted:   [['after', 58, 'after'], ['when', 42, 'when']],
+      public:    [['.', 41, 'end'], ['after', 37, 'after'], ['only', 22, 'only']],
+      adv:       [['.', 52, 'end'], ['and', 30, 'and'], ['at', 18, 'at']],
+      on:        [['approved', 48, 'approved'], ['university', 37, 'univ'], ['personal', 15, 'personal']],
+      in:        [['secure', 44, 'secure'], ['the', 36, 'the'], ['approved', 20, 'approved']],
+      from:      [['unauthorized', 57, 'unauth'], ['leaks', 25, 'dot'], ['AI', 18, 'ai']],
+      at:        [['all', 62, 'all'], ['rest', 38, 'dot']],
+      by:        [['the', 54, 'theU'], ['IT', 46, 'dot']],
+      only:      [['with', 61, 'with'], ['after', 39, 'after']],
+      with:      [['approved', 45, 'approved'], ['collaborators', 33, 'dot'], ['AI', 22, 'ai']],
+      before:    [['sharing', 55, 'dot'], ['uploading', 45, 'dot']],
+      and:       [['backed', 46, 'backed'], ['reviewed', 33, 'reg'], ['monitored', 21, 'reg']],
+      after:     [['the', 63, 'proj'], ['approval', 37, 'dot']],
+      when:      [['required', 58, 'dot'], ['the', 42, 'proj']],
+      approved:  [['servers', 41, 'dot'], ['systems', 35, 'dot'], ['platforms', 24, 'dot']],
+      univ:      [['servers', 64, 'dot'], ['systems', 36, 'dot']],
+      personal:  [['devices', 72, 'dot'], ['laptops', 28, 'dot']],
+      secure:    [['locations', 51, 'dot'], ['storage', 49, 'dot']],
+      the:       [['cloud', 58, 'dot'], ['lab', 42, 'dot']],
+      theU:      [['university', 61, 'dot'], ['institution', 39, 'dot']],
+      unauth:    [['access', 88, 'dot'], ['users', 12, 'dot']],
+      ai:        [['tools', 63, 'dot'], ['models', 37, 'dot']],
+      all:       [['times', 92, 'dot'], ['costs', 8, 'dot']],
+      backed:    [['up', 98, 'dot'], ['daily', 2, 'dot']],
+      reg:       [['regularly', 77, 'dot'], ['annually', 23, 'dot']],
+      proj:      [['project', 71, 'ends'], ['study', 29, 'ends']],
+      ends:      [['ends', 88, 'dot'], ['closes', 12, 'dot']],
+      dot:       [['.', 91, 'end'], ['and', 9, 'and']],
+      end:       []
+    };
+
+    const sentence = root.querySelector('.nt-sentence');
+    const rows     = root.querySelector('.nt-rows');
+    const steps    = root.querySelectorAll('.nt-steps li');
+    const stepNo   = root.querySelector('.nt-step-no');
+    const btnTop   = root.querySelector('[data-nt="top"]');
+    const btnRoll  = root.querySelector('[data-nt="sample"]');
+    const wait = ms => new Promise(r => setTimeout(r, ms));
+    let state, picks, busy = false;
+
+    const setStep = i => steps.forEach((s, j) => s.classList.toggle('is-on', j === i));
+
+    /* Cap the "and …" loop so the sentence always fits */
+    const candidates = () => (state === 'dot' && picks >= 8) ? [['.', 100, 'end']] : NT[state];
+
+    function addChip(word, generated) {
+      const c = document.createElement('span');
+      c.className = 'nt-chip' + (generated ? ' is-gen' : '');
+      c.textContent = word;
+      return sentence.insertBefore(c, sentence.querySelector('.nt-cursor'));
+    }
+
+    function renderRows() {
+      const list = candidates();
+      rows.innerHTML = '';
+      btnTop.disabled = btnRoll.disabled = !list.length;
+      if (!list.length) {
+        rows.innerHTML = '<div class="nt-end">⏹ The model predicts a special <b>end</b> token — and stops. ' +
+                         'Every word above was just the next likely piece. Press <b>Reset</b> to try another path.</div>';
+        return;
+      }
+      const max = Math.max(...list.map(c => c[1]));
+      list.forEach(([word, p], i) => {
+        const row = document.createElement('button');
+        row.className = 'nt-row' + (p === max ? ' is-top' : '');
+        row.innerHTML = '<span class="nt-word"></span><span class="nt-track"><span class="nt-bar"></span></span>' +
+                        `<span class="nt-pct">${p}%</span>`;
+        row.querySelector('.nt-word').textContent = word;
+        row.addEventListener('click', () => { row.blur(); pick(i); });
+        rows.appendChild(row);
+        setTimeout(() => { row.querySelector('.nt-bar').style.width = (p / max * 100) + '%'; }, 60 + i * 70);
+      });
+    }
+
+    /* Fly a copy of the chosen word from its bar up into the sentence */
+    function fly(from, to, word) {
+      const r = root.getBoundingClientRect();
+      const k = r.width / root.offsetWidth;  // current stage scale
+      const a = from.getBoundingClientRect(), b = to.getBoundingClientRect();
+      const ghost = document.createElement('span');
+      ghost.className = 'nt-chip is-gen nt-ghost';
+      ghost.textContent = word;
+      ghost.style.left = (a.left - r.left) / k + 'px';
+      ghost.style.top  = (a.top  - r.top)  / k + 'px';
+      root.appendChild(ghost);
+      const dx = (b.left - a.left) / k, dy = (b.top - a.top) / k;
+      return ghost.animate(
+        [{ transform: 'translate(0, 0) scale(0.75)' }, { transform: `translate(${dx}px, ${dy}px) scale(1)` }],
+        { duration: 500, easing: 'cubic-bezier(0.3, 0.7, 0.2, 1)' }
+      ).finished.then(() => ghost.remove());
+    }
+
+    async function pick(i) {
+      const list = candidates();
+      if (busy || !list[i]) return;
+      busy = true;
+      const [word, , nextState] = list[i];
+      const row = rows.children[i];
+
+      row.classList.add('is-picked');                        // 3. pick one
+      rows.classList.add('is-busy');
+      setStep(2);
+      await wait(350);
+
+      const chip = addChip(word, true);                      // 4. add it to the text
+      chip.style.visibility = 'hidden';
+      await fly(row.querySelector('.nt-word'), chip, word);
+      chip.style.visibility = '';
+      chip.classList.add('is-new');
+      stepNo.textContent = ++picks;
+      setStep(3);
+      await wait(450);
+
+      setStep(0);                                            // 1. re-read everything
+      const chips = [...sentence.querySelectorAll('.nt-chip')];
+      for (const c of chips) { c.classList.add('is-reading'); await wait(45); }
+      await wait(250);
+      chips.forEach(c => c.classList.remove('is-reading'));
+
+      state = nextState;                                     // 2. score the next word
+      rows.classList.remove('is-busy');
+      setStep(state === 'end' ? -1 : 1);
+      renderRows();
+      busy = false;
+    }
+
+    function reset() {
+      if (busy) return;
+      state = 'start';
+      picks = 0;
+      stepNo.textContent = 0;
+      sentence.innerHTML = '<span class="nt-cursor"></span>';
+      PROMPT.forEach(w => addChip(w, false));
+      setStep(1);
+      renderRows();
+    }
+
+    btnTop.addEventListener('click', () => {
+      btnTop.blur();
+      const list = candidates();
+      pick(list.reduce((best, c, i) => c[1] > list[best][1] ? i : best, 0));
+    });
+    btnRoll.addEventListener('click', () => {
+      btnRoll.blur();
+      const list = candidates();
+      let r = Math.random() * list.reduce((sum, c) => sum + c[1], 0);
+      const i = list.findIndex(c => (r -= c[1]) < 0);
+      pick(i < 0 ? list.length - 1 : i);
+    });
+    root.querySelector('[data-nt="reset"]').addEventListener('click', e => { e.currentTarget.blur(); reset(); });
+
+    reset();
   })();
 
   /* ── Init ────────────────────────────────────────────────────── */
