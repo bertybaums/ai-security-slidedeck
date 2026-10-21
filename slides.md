@@ -97,6 +97,8 @@ Placeholder: "Simple ARC puzzle introduction here"
 # Section 3
 
 ## 03 Risk Classification
+Subtitle: Know what you're handling, and where it's allowed to go
+(Section owned by Lucas Marshall, built from his outline "NCURA AI Risk Classification Outline". Purpose: help research administrators identify the information they're handling and decide whether their institution permits its use in a particular AI tool. About 15 minutes, in three parts: understand the information and its risk level; recognize how institutional requirements differ; apply a practical decision process.)
 
 ## Interactive Question
 According to a 2026 study by TrustedTech, which group uses unapproved AI tools at work more?
@@ -107,24 +109,76 @@ Reference (display after correct answer shown): https://www.businesswire.com/new
 
 
 ## Interactive Classify Data Risk
-(Interface where the user can classify various data types as high, moderate, or low risk, in terms of research administration data in higher education)
+Subhead: Click HIGH · MOD · LOW for each item. What's inside it, and who can already see it?
+(Interface where the audience classifies familiar research administration items as high, moderate, or low risk. No answer key, since levels vary by institution. Eight cards, each with a short descriptor: Funding Announcement (posted publicly by the sponsor) · Salary Spreadsheet (named personnel and their pay rates) · Unpublished Proposal (draft that hasn't been submitted yet) · Award Total (listed in a public award database) · AI Meeting Notes (auto-summary of a project team call) · Published Article (peer-reviewed and in print) · Confidential Research Data (protected by award terms or the IRB) · Budget Justification (draft for an upcoming proposal).)
+Revealed callout: "Contents and context set the level. An award total is public, but the salary spreadsheet behind it, with names attached, is not."
 
-## Approve Services for Risk
-(Show example services that are authorized to handle various categories of data. For High Risk, locally hosted models (and some AI providers with an enterprise license), For Moderate Risk, enterprise license with a fronteir provider, For Low Risk, some generic AI service. Final animated step: a warning banner at the bottom pointing at the High Risk card — "On-prem AI security is not guaranteed — it must be built and monitored.")
+## One File, Many Kinds of Information
+(A mock document, "Proposal_Draft_v3.docx", with four sections. Each section's risk tag is revealed one at a time and the row tints in that color: Project Summary (public once awarded) → LOW · Preliminary Results (unpublished findings) → MODERATE · Personnel Budget (names and salaries) → HIGH · References (already published) → LOW. Final step: an arrow to a verdict card, "Whole file: High. The most sensitive piece sets the level. Handle the file at that level, or remove that piece before it goes into an AI tool.")
 
-## Locally Hosted Models
-(Highlight the NVIDIA DGX Spark, which is a small super-computer that could sit on a person's desk, costs less than $5,000, and is capable of hosting really good local AI models. Highlight that SUU is currently doing this)
+## Is AI Listening to Your Meeting?
+(Left: a dark video-call mockup, "Project Kickoff", with tiles for a PI, a Co-Investigator, the research administrator ("You"), and an "AI Notetaker" tile with a pulsing ● REC badge. Its live transcript captures "unpublished results" and "Dr. Lee at $142K". Right: three steps revealed one at a time. 1 Notice: AI note-takers watch calendars and join meetings on their own. 2 Ask: ask the host whether an AI tool is recording or summarizing. 3 Act: if the topic is sensitive, request its removal or decline to join.)
+Revealed callout: "Check the award. Award terms, program officers, or the IRB may forbid sharing research data outside secure institutional systems."
+
+## Every Institution Draws Its Own Lines
+(Three classification "ladders" side by side, most sensitive at top, revealed one at a time, with a "more sensitive / less sensitive" axis:)
+- Arizona State (4 levels): Highly Sensitive · Sensitive · Internal · Public
+- Big 10 School (4 levels; University of Michigan's scheme): Restricted · High · Moderate · Low
+- Ivy League School (5 levels; Harvard's scheme): Level 5 · Level 4 · Level 3 · Level 2 · Level 1
+Revealed callout: "Labels, approved AI tools, and approval processes all vary. Learn your institution's before you upload."
+Sources line: ASU Digital Trust Guidelines · U-M Safe Computing · Harvard Information Security
+
+## If You Are Not Paying for the Product, You Are the Product
+(Large quote, attributed as "Quoted in ASU's Digital Trust Guidelines", followed by two cards revealed one at a time.)
+- Free & personal accounts: Your prompts and uploads are the price of admission. They may be kept, reviewed, or used for training. → "Assume everything you enter is public"
+- Institution-approved accounts: A contract protects what you enter, but each tool is approved only for certain kinds of data. → "A license isn't permission for every kind of data"
+
+## Case Study: How It Works at Arizona State University
+(Three-step process flow, revealed one step at a time.)
+1. Classify the data: run it through ASU's Data Classification Tool (chips: Public · Internal · Sensitive · Highly Sensitive)
+2. Check the tool and account: an ASU-approved tool, signed in with ASU credentials, approved for that data (chips: ChatGPT Edu · Gemini · Copilot Chat · "Personal accounts: public data only")
+3. Review your responsibilities: follow ASU's Digital Trust Guidelines (chips: Privacy · Confidentiality · Intellectual property · Transparency)
+Revealed callout: "Not sure? Ask before you upload. ASU's AI help resources: ai.asu.edu/ai-help"
+Sources: https://ets.engineering.asu.edu/cybersecurity/ai-use-and-data-security/ · https://ai.asu.edu/ai-tools · https://ai.asu.edu/digital-trust-guidelines · https://ai.asu.edu/ai-help
+
+## Four Questions Before You Upload
+Scenario: You want AI to polish the wording of an unpublished budget justification.
+(Four question cards, revealed one at a time, each with an "In this case" answer.)
+1. What information am I submitting? → Unpublished budget details, maybe staff names and salaries
+2. How is it classified? → Not public, and named salaries raise the level
+3. Is this tool, account, and use approved? → Only an institutional account approved for that level
+4. Who can clarify an uncertain answer? → Your research office, IT security, or AI help desk
+Revealed callout: "Clear answers to all four? Go ahead. Any doubt? Ask before you upload."
 
 ## Takeaways
-Key: Standardized guidance is key for maintaining security
--Well thought-through policies, procedures, and data classification help make decision making clear for employees and reduce the uncertainty and risk for data security incidents
+Key: Clear institutional guidance makes the safe choice the easy choice
+-Classify by contents and context. One file can hold several kinds of data, and the most sensitive sets the level
+-Treat free AI tools as public, and remember a license or local server doesn't cover every type of data
+-Know your institution's labels, approved tools, and who to ask before you upload
 (Classic slide with bullets)
+
+## Section 3 Further Reading (from Lucas's outline, not shown on slides)
+- University of Michigan, Appropriate Use of AI Services: https://genai.umich.edu/resources/appropriate-use
+- Harvard, Generative AI Guidelines: https://www.huit.harvard.edu/ai/guidelines
+- Harvard, Best Practices for Using Generative AI: https://privsec.harvard.edu/best-practices-using-generative-ai
+- NIST, Generative AI Risk Management Profile: https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf
+- NIST, AI RMF Explainer Video: https://www.nist.gov/video/introduction-nist-ai-risk-management-framework-ai-rmf-10-explainer-video
+- EDUCAUSE, How Higher Ed Can Innovate on AI Without Sacrificing Privacy: https://er.educause.edu/podcasts/educause-shop-talk/2026/how-higher-ed-can-innovate-on-ai-without-sacrificing-privacy
+- University of Michigan, Generative AI Workshop Recordings: https://www.mivideo.it.umich.edu/genai
+
+Open items from Lucas's outline: research federal sponsor AI usage guidelines (e.g., NIH NOT-OD-23-149), and find real cases where data was improperly used.
 
 # Conclusion
 
 ## Question and Answer Time
 
+## AI4RA External Evaluation
+Please take a moment to share your feedback on today's session.
+- Point your phone's camera at the code
+- Or visit bit.ly/3NwQpTi
+(Large QR code on the right, evaluation_survey.png, with the short link beneath it. The QR code and bit.ly link both open the AI4RA survey at surveymonkey.com/r/AI4RAgeneral. Source: docs/img/evaluation_survey.png in https://github.com/ui-insight/REACHWorkshop2026)
+
 ## Contact Information
 Nathan Wiggins: nathanwiggins@suu.edu (photo: wiggins.jpg)
-Bert Baumgaertner, Founder of the AI Ethics & Inquiry Outfit and Professor of Philosophy, University of Idaho (email: TBD) (photo: Bert.webp)
-Lucas Marshall, Research Advancement Administrator, Arizona State University (email: TBD) (photo: marshall.jpeg)
+Bert Baumgaertner, Founder of the AI Ethics & Inquiry Outfit and Professor of Philosophy, University of Idaho: bbaum@uidaho.edu (photo: Bert.webp)
+Lucas Marshall, Research Advancement Administrator, Arizona State University: lucas.marshall@asu.edu (photo: marshall.jpeg)

@@ -760,50 +760,57 @@
        Classify Data Risk
     ════════════════════════════════════════════════════════════════ */
     .classify-subtitle {
-      font-size: 20px;
+      font-size: 22px;
       color: #777;
-      margin-bottom: 16px;
-      margin-top: 8px;
+      margin-bottom: 20px;
+      margin-top: 4px;
     }
 
     .classify-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 14px;
+      gap: 18px;
     }
 
     .classify-card {
+      position: relative;
       background: #fff;
       border: 2px solid #ddd;
-      border-radius: 12px;
-      padding: 14px 14px 10px;
+      border-radius: 14px;
+      padding: 16px 18px 14px;
       display: flex;
       flex-direction: column;
-      gap: 7px;
+      gap: 8px;
       transition: background 0.3s ease, border-color 0.3s ease;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.06);
     }
 
     .classify-card[data-level="high"] { border-color: #b01010; background: rgba(176,16,16,0.07); }
     .classify-card[data-level="mod"]  { border-color: #c07000; background: rgba(192,112,0,0.07); }
     .classify-card[data-level="low"]  { border-color: #1a7a1a; background: rgba(26,122,26,0.07); }
 
-    .classify-card-icon { font-size: 28px; line-height: 1; }
+    .classify-card-icon { font-size: 34px; line-height: 1; }
 
     .classify-card-name {
-      font-size: 19px;
+      font-size: 23px;
       font-weight: 700;
       color: #111;
-      line-height: 1.3;
+      line-height: 1.25;
+    }
+
+    .classify-card-desc {
+      font-size: 17px;
+      color: #777;
+      line-height: 1.35;
       flex: 1;
     }
 
-    .c-btns { display: flex; gap: 5px; }
+    .c-btns { display: flex; gap: 6px; }
 
     .c-btn {
       flex: 1;
-      padding: 5px 0;
-      font-size: 14px;
+      padding: 7px 0;
+      font-size: 15px;
       font-weight: 700;
       letter-spacing: 0.08em;
       border: 1.5px solid;
@@ -819,13 +826,17 @@
     .c-btn-m { color: #b06000; border-color: #c07000; background: rgba(192,112,0,0.07); }
     .c-btn-l { color: #1a7a1a; border-color: #1a7a1a; background: rgba(26,122,26,0.07); }
 
+    /* Pinned beside the icon so classifying doesn't grow the card */
     .classify-badge {
+      position: absolute;
+      top: 18px;
+      right: 18px;
       font-size: 14px;
       font-weight: 700;
       letter-spacing: 0.1em;
       text-transform: uppercase;
       text-align: center;
-      padding: 4px 0;
+      padding: 5px 12px;
       border-radius: 6px;
       display: none;
     }
@@ -836,250 +847,447 @@
     .classify-card[data-level="low"]  .classify-badge { color: #1a7a1a; background: rgba(26,122,26,0.12); }
 
     /* ════════════════════════════════════════════════════════════════
-       Approved Services per Risk Tier
+       Section III shared: callout bar, risk-level colors, source line
     ════════════════════════════════════════════════════════════════ */
-    .tier-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 24px;
-      margin-top: 4px;
-    }
-
-    .tier-card {
-      border-radius: 16px;
-      border: 2px solid var(--tc);
-      background: var(--tb);
-      padding: 24px 22px;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      box-shadow: 0 4px 18px rgba(0,0,0,0.07);
-    }
-
-    .tier-risk-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 16px;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--tc);
-      background: var(--tb2);
-      padding: 6px 14px;
-      border-radius: 20px;
-      width: fit-content;
-    }
-
-    .tier-icon { font-size: 20px; }
-
-    .tier-data-desc {
-      font-size: 19px;
-      color: #444;
-      line-height: 1.45;
-      padding-bottom: 12px;
-      border-bottom: 1.5px solid rgba(0,0,0,0.07);
-    }
-
-    .tier-services-label {
-      font-size: 14px;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: #aaa;
-      margin-bottom: -6px;
-    }
-
-    .tier-service-item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 20px;
-      color: #222;
-      font-weight: 500;
-    }
-
-    .tier-service-item::before {
-      content: '';
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--tc);
-      flex-shrink: 0;
-    }
-
-    .tier-note {
-      font-size: 17px;
-      color: #666;
-      line-height: 1.4;
-      font-style: italic;
-      margin-top: auto;
-      padding-top: 10px;
-      border-top: 1.5px solid rgba(0,0,0,0.07);
-    }
-
-    .onprem-warning {
+    .callout {
       margin-top: 22px;
-      width: calc((100% - 28px) / 3);
       display: flex;
       align-items: center;
-      gap: 14px;
-      background: rgba(176,16,16,0.07);
-      border: 2px solid #b01010;
-      border-radius: 12px;
-      padding: 14px 20px;
+      gap: 18px;
+      background: var(--cb, rgba(26,58,143,0.06));
+      border-left: 6px solid var(--cc, #1a3a8f);
+      border-radius: 0 14px 14px 0;
+      padding: 16px 26px;
     }
 
-    .onprem-arrow {
-      font-size: 40px;
-      font-weight: 700;
-      color: #b01010;
-      line-height: 1;
-      flex-shrink: 0;
-    }
+    .callout-icon { font-size: 32px; flex-shrink: 0; }
+    .callout-text { font-size: 23px; color: #333; line-height: 1.4; }
+    .callout-text strong { color: var(--cc, #1a3a8f); }
 
-    .onprem-text {
-      font-size: 19px;
-      font-weight: 700;
-      color: #8b0000;
-      line-height: 1.35;
-    }
+    /* Risk-level colors: set --lc / --lb for .lv ladders and .flow-chip tags */
+    .lv-green  { --lc: #1a7a1a; --lb: rgba(26,122,26,0.09); }
+    .lv-amber  { --lc: #b06000; --lb: rgba(192,112,0,0.1); }
+    .lv-orange { --lc: #c43d00; --lb: rgba(196,61,0,0.09); }
+    .lv-red    { --lc: #b01010; --lb: rgba(176,16,16,0.09); }
+    .lv-dark   { --lc: #6b0000; --lb: rgba(107,0,0,0.11); }
+
+    .source-note { font-size: 15px; color: #999; margin-top: 12px; }
 
     /* ════════════════════════════════════════════════════════════════
-       DGX Spark
+       One File, Many Kinds of Information
     ════════════════════════════════════════════════════════════════ */
-    .dgx-layout {
-      display: flex;
-      gap: 36px;
-      align-items: stretch;
-      flex: 1;
-      margin-top: 4px;
-    }
+    .mix-layout { display: flex; align-items: center; gap: 30px; }
 
-    .dgx-left { flex: 1; display: flex; flex-direction: column; gap: 20px; }
-
-    .dgx-stats {
-      display: flex;
-      gap: 16px;
-    }
-
-    .dgx-stat {
-      flex: 1;
-      background: rgba(26,58,143,0.05);
-      border: 1.5px solid rgba(26,58,143,0.15);
-      border-radius: 14px;
-      padding: 18px 16px;
-      text-align: center;
-    }
-
-    .dgx-stat-value {
-      font-size: 40px;
-      font-weight: 900;
-      color: #1a3a8f;
-      line-height: 1;
-      margin-bottom: 6px;
-    }
-
-    .dgx-stat-label {
-      font-size: 14px;
-      color: #666;
-      font-weight: 600;
-      line-height: 1.3;
-    }
-
-    .dgx-features { display: flex; flex-direction: column; gap: 14px; }
-
-    .dgx-feature {
-      display: flex;
-      align-items: flex-start;
-      gap: 14px;
-      font-size: 23px;
-      color: #333;
-      line-height: 1.4;
-    }
-
-    .dgx-feature-icon { font-size: 24px; flex-shrink: 0; margin-top: 1px; }
-
-    .dgx-right {
-      width: 460px;
+    .mix-doc {
+      width: 900px;
       flex-shrink: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    .dgx-hardware {
-      flex: 1;
-      background: linear-gradient(145deg, #0d0d0d 0%, #1a1a2e 100%);
-      border-radius: 20px;
-      padding: 36px 32px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 14px;
-      border: 1px solid rgba(118,185,0,0.35);
-      box-shadow: 0 0 48px rgba(118,185,0,0.1), inset 0 1px 0 rgba(255,255,255,0.05);
-      position: relative;
+      background: #fff;
+      border-radius: 16px;
+      border: 1.5px solid #e0e0e0;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.08);
+      padding-bottom: 14px;
       overflow: hidden;
     }
 
-    .dgx-hardware::before {
-      content: '';
-      position: absolute;
-      top: -60px; right: -60px;
-      width: 200px; height: 200px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(118,185,0,0.12) 0%, transparent 70%);
-    }
-
-    .dgx-nvidia-logo {
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 0.3em;
-      color: #76b900;
-      text-transform: uppercase;
-    }
-
-    .dgx-model-name {
-      font-size: 38px;
-      font-weight: 900;
-      color: #fff;
-      text-align: center;
-      line-height: 1.1;
-    }
-
-    .dgx-model-sub {
-      font-size: 16px;
-      color: rgba(255,255,255,0.5);
-      text-align: center;
-    }
-
-    .dgx-hw-divider {
-      width: 60px;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, #76b900, transparent);
-    }
-
-    .dgx-price-tag {
-      font-size: 28px;
-      font-weight: 700;
-      color: #76b900;
-    }
-
-    .dgx-suu-badge {
-      background: rgba(26,58,143,0.9);
-      border-radius: 12px;
-      padding: 14px 20px;
+    .mix-doc-bar {
       display: flex;
       align-items: center;
       gap: 12px;
-      font-size: 17px;
+      padding: 13px 24px;
+      background: #f4f6fb;
+      border-bottom: 1.5px solid #e6e9f0;
+      font-size: 19px;
       font-weight: 700;
-      color: #fff;
+      color: #1a3a8f;
     }
 
-    .dgx-suu-icon { font-size: 24px; }
+    .mix-row {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      margin: 12px 18px 0;
+      padding: 12px 18px;
+      border-radius: 10px;
+      border-left: 5px solid #e3e3e3;
+      transition: background 0.38s ease, border-color 0.38s ease;
+    }
+
+    /* Row lights up in its risk color once its tag is revealed */
+    .mix-row:has(.step-visible) { border-left-color: var(--lc); background: var(--lb); }
+
+    .mix-row-body { flex: 1; display: flex; flex-direction: column; gap: 8px; }
+    .mix-row-title { font-size: 23px; font-weight: 700; color: #111; }
+    .mix-row-title span { font-size: 18px; font-weight: 400; color: #777; margin-left: 10px; }
+    .mix-bar { height: 8px; border-radius: 4px; background: #e8e8e8; }
+
+    .mix-tag {
+      width: 140px;
+      flex-shrink: 0;
+      text-align: center;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #fff;
+      background: var(--lc);
+      padding: 8px 0;
+      border-radius: 20px;
+    }
+
+    .mix-result { flex: 1; display: flex; align-items: center; gap: 22px; }
+
+    .mix-arrow { font-size: 54px; font-weight: 700; color: #b01010; flex-shrink: 0; }
+
+    .mix-verdict {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+      background: rgba(176,16,16,0.05);
+      border: 2px solid #b01010;
+      border-radius: 18px;
+      padding: 32px 30px;
+    }
+
+    .mix-verdict-badge {
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #fff;
+      background: #b01010;
+      padding: 8px 18px;
+      border-radius: 20px;
+    }
+
+    .mix-verdict-title { font-size: 38px; font-weight: 700; color: #111; line-height: 1.22; }
+    .mix-verdict-text { font-size: 23px; color: #555; line-height: 1.45; }
+
+    /* ════════════════════════════════════════════════════════════════
+       AI Meeting Assistants
+    ════════════════════════════════════════════════════════════════ */
+    .meet-layout { display: flex; gap: 40px; align-items: stretch; }
+
+    .meet-call {
+      width: 800px;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding: 16px 18px 18px;
+      border-radius: 20px;
+      background: linear-gradient(160deg, #13295b 0%, #0a1a3d 100%);
+      box-shadow: 0 18px 44px rgba(10, 26, 61, 0.35);
+    }
+
+    .meet-bar { display: flex; align-items: center; gap: 8px; }
+    .meet-dot { width: 11px; height: 11px; border-radius: 50%; background: rgba(255,255,255,0.25); }
+    .meet-bar-title { margin-left: 10px; font-size: 16px; font-weight: 700; color: rgba(255,255,255,0.75); }
+
+    .meet-tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+    .meet-tile {
+      position: relative;
+      height: 116px;
+      border-radius: 12px;
+      background: #1b366f;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .meet-avatar {
+      width: 62px;
+      height: 62px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #3a63c7, #1a3a8f);
+      color: #fff;
+      font-size: 22px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .meet-name {
+      position: absolute;
+      left: 12px;
+      bottom: 9px;
+      font-size: 14px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.85);
+      background: rgba(0,0,0,0.25);
+      padding: 3px 9px;
+      border-radius: 6px;
+    }
+
+    .meet-tile-ai { background: rgba(176,16,16,0.22); box-shadow: inset 0 0 0 2px #ff6b6b; }
+    .meet-ai-icon { font-size: 50px; line-height: 1; }
+
+    .meet-rec {
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: #fff;
+      background: #d01c1c;
+      padding: 4px 10px;
+      border-radius: 12px;
+      animation: meet-pulse 1.4s ease-in-out infinite;
+    }
+
+    @keyframes meet-pulse { 50% { opacity: 0.4; } }
+
+    .meet-transcript {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 10px;
+      padding: 10px 16px 12px;
+      font-size: 18px;
+      color: rgba(255,255,255,0.85);
+      line-height: 1.45;
+    }
+
+    .meet-transcript-k {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #ff8a8a;
+      margin-bottom: 4px;
+    }
+
+    .meet-transcript mark { background: rgba(255,107,107,0.28); color: #fff; padding: 0 4px; border-radius: 3px; }
+
+    .meet-steps { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 16px; }
+
+    .meet-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 18px;
+      background: #fff;
+      border-radius: 14px;
+      border-left: 5px solid #1a3a8f;
+      padding: 18px 22px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+
+    .meet-step-num {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: rgba(26,58,143,0.1);
+      color: #1a3a8f;
+      font-size: 22px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .meet-step-title { font-size: 26px; font-weight: 700; color: #111; margin-bottom: 4px; }
+    .meet-step-desc { font-size: 20px; color: #555; line-height: 1.4; }
+
+    /* ════════════════════════════════════════════════════════════════
+       Institutional Classification Labels
+    ════════════════════════════════════════════════════════════════ */
+    .labels-layout { display: flex; gap: 22px; }
+
+    .labels-axis {
+      width: 92px;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 0;
+    }
+
+    .labels-axis-t {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #999;
+      text-align: center;
+      line-height: 1.3;
+    }
+
+    .labels-axis-bar {
+      flex: 1;
+      width: 8px;
+      border-radius: 4px;
+      background: linear-gradient(180deg, #6b0000, #b01010, #c07000, #1a7a1a);
+    }
+
+    .labels-grid { flex: 1; display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+
+    .labels-card {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      background: #fff;
+      border-radius: 18px;
+      border-top: 5px solid #1a3a8f;
+      padding: 20px 24px 24px;
+      box-shadow: 0 4px 24px rgba(26,58,143,0.1);
+    }
+
+    .labels-inst { font-size: 27px; font-weight: 700; color: #111; }
+
+    .labels-count {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #aaa;
+      margin-bottom: 6px;
+    }
+
+    .lv {
+      flex: 1;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      padding: 0 18px;
+      border-radius: 10px;
+      border-left: 6px solid var(--lc);
+      background: var(--lb);
+      color: var(--lc);
+      font-size: 21px;
+      font-weight: 700;
+    }
+
+    /* ════════════════════════════════════════════════════════════════
+       Free vs. Approved Accounts
+    ════════════════════════════════════════════════════════════════ */
+    .quote-wrap { position: relative; text-align: center; padding-top: 10px; margin-bottom: 40px; }
+
+    .quote-accent { width: 90px; height: 6px; background: #b01010; margin: 0 auto 26px; }
+
+    .quote-text { font-size: 64px; font-weight: 700; color: #111; line-height: 1.18; }
+    .quote-text em { font-style: normal; color: #b01010; }
+    .quote-cite { font-size: 21px; color: #888; margin-top: 16px; }
+
+    .acct-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 36px; }
+
+    .acct-card {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      background: #fff;
+      border-radius: 18px;
+      border-top: 5px solid var(--ac);
+      padding: 28px 34px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    }
+
+    .acct-head { display: flex; align-items: center; gap: 14px; font-size: 30px; font-weight: 700; color: #111; }
+    .acct-icon { font-size: 36px; }
+    .acct-desc { font-size: 23px; color: #555; line-height: 1.45; flex: 1; }
+
+    .acct-rule {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--ac);
+      background: var(--ab);
+      border-radius: 10px;
+      padding: 12px 20px;
+    }
+
+    /* ════════════════════════════════════════════════════════════════
+       Case Study chips (inside .flow-step)
+    ════════════════════════════════════════════════════════════════ */
+    .flow-chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 7px; margin-top: 16px; }
+
+    .flow-chip {
+      font-size: 15px;
+      font-weight: 700;
+      padding: 6px 12px;
+      border-radius: 14px;
+      color: var(--lc, #1a3a8f);
+      background: var(--lb, rgba(26,58,143,0.08));
+    }
+
+    /* ════════════════════════════════════════════════════════════════
+       Decision Process
+    ════════════════════════════════════════════════════════════════ */
+    .scenario {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      font-size: 27px;
+      color: #222;
+      line-height: 1.4;
+      background: rgba(26,58,143,0.04);
+      border-left: 5px solid #1a3a8f;
+      border-radius: 0 12px 12px 0;
+      padding: 16px 28px;
+      margin-bottom: 24px;
+    }
+
+    .scenario-k {
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #1a3a8f;
+      background: rgba(26,58,143,0.1);
+      padding: 6px 12px;
+      border-radius: 8px;
+      white-space: nowrap;
+    }
+
+    .ask-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+
+    .ask-card {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      background: #fff;
+      border-radius: 16px;
+      border-top: 5px solid #1a3a8f;
+      padding: 20px 22px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+
+    .ask-num {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: #1a3a8f;
+      color: #fff;
+      font-size: 21px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ask-q { font-size: 25px; font-weight: 700; color: #111; line-height: 1.25; flex: 1; }
+
+    .ask-a {
+      font-size: 18px;
+      color: #444;
+      line-height: 1.4;
+      background: rgba(26,58,143,0.05);
+      border-radius: 10px;
+      padding: 10px 14px;
+    }
+
+    .ask-a-k {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #1a3a8f;
+      margin-bottom: 4px;
+    }
 
     /* ════════════════════════════════════════════════════════════════
        Training vs. Inference (animated)
@@ -1599,6 +1807,56 @@
     }
 
     /* ════════════════════════════════════════════════════════════════
+       AI4RA External Evaluation
+    ════════════════════════════════════════════════════════════════ */
+    .eval-layout { flex: 1; display: flex; align-items: center; gap: 80px; }
+
+    .eval-text { flex: 1; display: flex; flex-direction: column; gap: 26px; }
+
+    .eval-lead { font-size: 36px; color: #333; line-height: 1.4; }
+    .eval-lead strong { color: #1a3a8f; }
+
+    .eval-how {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      font-size: 26px;
+      color: #444;
+    }
+
+    .eval-how-icon {
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      background: rgba(26,58,143,0.09);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      flex-shrink: 0;
+    }
+
+    .eval-how strong { color: #1a3a8f; }
+
+    .eval-qr-card {
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      background: #fff;
+      border-radius: 20px;
+      border-top: 5px solid #1a3a8f;
+      padding: 30px 40px 26px;
+      box-shadow: 0 8px 36px rgba(26,58,143,0.16);
+    }
+
+    /* Source PNG is 260px; keep modules sharp when scaled up */
+    .eval-qr { width: 360px; height: auto; image-rendering: pixelated; display: block; }
+
+    .eval-qr-url { font-size: 30px; font-weight: 700; color: #1a3a8f; letter-spacing: 0.02em; }
+
+    /* ════════════════════════════════════════════════════════════════
        Contact Information
     ════════════════════════════════════════════════════════════════ */
     .contact-grid {
@@ -1655,7 +1913,7 @@
       border: 1.5px solid rgba(26, 58, 143, 0.2);
       border-radius: 10px;
       padding: 11px 20px;
-      margin-top: 4px;
+      margin-top: auto; /* keeps emails level when a title wraps */
     }
 
     .contact-email-icon { font-size: 20px; }
@@ -1765,6 +2023,9 @@
     opacity: 1 !important;
     transform: none !important;
   }
+
+  /* Rows on the "One File" slide normally tint as their tags are revealed */
+  .mix-row { border-left-color: var(--lc); background: var(--lb); }
 
   /* Hide the presentation UI controls */
   #nav-prev, #nav-next, #progress, #counter, #hint {
@@ -2584,7 +2845,7 @@
         <div class="section-big-num" style="color:rgba(26,122,26,0.07);">03</div>
         <div class="section-accent-bar" style="background:#1a7a1a;"></div>
         <div class="section-big-title">Risk Classification</div>
-        <div class="section-big-sub">Frameworks for identifying and managing AI risk at your institution</div>
+        <div class="section-big-sub">Know what you're handling, and where it's allowed to go</div>
       </div>
     </div>
   </div>
@@ -2621,34 +2882,13 @@
     <div class="content">
       <div class="label">Section III · Risk Classification</div>
       <div class="heading" style="font-size:46px; margin-bottom:6px;">Classify the Risk Level</div>
-      <div class="classify-subtitle">Click HIGH · MOD · LOW for each data type in a research administration context</div>
+      <div class="classify-subtitle">Click HIGH · MOD · LOW for each item. What's inside it, and who can already see it?</div>
       <div class="classify-grid">
 
         <div class="classify-card">
-          <div class="classify-card-icon">🏥</div>
-          <div class="classify-card-name">Patient Health Records (PHI)</div>
-          <div class="c-btns">
-            <button class="c-btn c-btn-h" onclick="classify(this,'high')">HIGH</button>
-            <button class="c-btn c-btn-m" onclick="classify(this,'mod')">MOD</button>
-            <button class="c-btn c-btn-l" onclick="classify(this,'low')">LOW</button>
-          </div>
-          <div class="classify-badge"></div>
-        </div>
-
-        <div class="classify-card">
-          <div class="classify-card-icon">🔢</div>
-          <div class="classify-card-name">Social Security Numbers</div>
-          <div class="c-btns">
-            <button class="c-btn c-btn-h" onclick="classify(this,'high')">HIGH</button>
-            <button class="c-btn c-btn-m" onclick="classify(this,'mod')">MOD</button>
-            <button class="c-btn c-btn-l" onclick="classify(this,'low')">LOW</button>
-          </div>
-          <div class="classify-badge"></div>
-        </div>
-
-        <div class="classify-card">
-          <div class="classify-card-icon">🎓</div>
-          <div class="classify-card-name">Student Records (FERPA)</div>
+          <div class="classify-card-icon">📢</div>
+          <div class="classify-card-name">Funding Announcement</div>
+          <div class="classify-card-desc">Posted publicly by the sponsor</div>
           <div class="c-btns">
             <button class="c-btn c-btn-h" onclick="classify(this,'high')">HIGH</button>
             <button class="c-btn c-btn-m" onclick="classify(this,'mod')">MOD</button>
@@ -2659,7 +2899,8 @@
 
         <div class="classify-card">
           <div class="classify-card-icon">👤</div>
-          <div class="classify-card-name">Personnel &amp; HR Files</div>
+          <div class="classify-card-name">Salary Spreadsheet</div>
+          <div class="classify-card-desc">Named personnel and their pay rates</div>
           <div class="c-btns">
             <button class="c-btn c-btn-h" onclick="classify(this,'high')">HIGH</button>
             <button class="c-btn c-btn-m" onclick="classify(this,'mod')">MOD</button>
@@ -2670,7 +2911,8 @@
 
         <div class="classify-card">
           <div class="classify-card-icon">📋</div>
-          <div class="classify-card-name">Active Grant Proposals</div>
+          <div class="classify-card-name">Unpublished Proposal</div>
+          <div class="classify-card-desc">Draft that hasn't been submitted yet</div>
           <div class="c-btns">
             <button class="c-btn c-btn-h" onclick="classify(this,'high')">HIGH</button>
             <button class="c-btn c-btn-m" onclick="classify(this,'mod')">MOD</button>
@@ -2680,8 +2922,21 @@
         </div>
 
         <div class="classify-card">
-          <div class="classify-card-icon">💰</div>
-          <div class="classify-card-name">Research Budget Data</div>
+          <div class="classify-card-icon">💵</div>
+          <div class="classify-card-name">Award Total</div>
+          <div class="classify-card-desc">Listed in a public award database</div>
+          <div class="c-btns">
+            <button class="c-btn c-btn-h" onclick="classify(this,'high')">HIGH</button>
+            <button class="c-btn c-btn-m" onclick="classify(this,'mod')">MOD</button>
+            <button class="c-btn c-btn-l" onclick="classify(this,'low')">LOW</button>
+          </div>
+          <div class="classify-badge"></div>
+        </div>
+
+        <div class="classify-card">
+          <div class="classify-card-icon">🎙️</div>
+          <div class="classify-card-name">AI Meeting Notes</div>
+          <div class="classify-card-desc">Auto-summary of a project team call</div>
           <div class="c-btns">
             <button class="c-btn c-btn-h" onclick="classify(this,'high')">HIGH</button>
             <button class="c-btn c-btn-m" onclick="classify(this,'mod')">MOD</button>
@@ -2692,7 +2947,8 @@
 
         <div class="classify-card">
           <div class="classify-card-icon">📚</div>
-          <div class="classify-card-name">Published Research</div>
+          <div class="classify-card-name">Published Article</div>
+          <div class="classify-card-desc">Peer-reviewed and in print</div>
           <div class="c-btns">
             <button class="c-btn c-btn-h" onclick="classify(this,'high')">HIGH</button>
             <button class="c-btn c-btn-m" onclick="classify(this,'mod')">MOD</button>
@@ -2702,8 +2958,21 @@
         </div>
 
         <div class="classify-card">
-          <div class="classify-card-icon">📅</div>
-          <div class="classify-card-name">Meeting Agendas &amp; Minutes</div>
+          <div class="classify-card-icon">🔬</div>
+          <div class="classify-card-name">Confidential Research Data</div>
+          <div class="classify-card-desc">Protected by award terms or the IRB</div>
+          <div class="c-btns">
+            <button class="c-btn c-btn-h" onclick="classify(this,'high')">HIGH</button>
+            <button class="c-btn c-btn-m" onclick="classify(this,'mod')">MOD</button>
+            <button class="c-btn c-btn-l" onclick="classify(this,'low')">LOW</button>
+          </div>
+          <div class="classify-badge"></div>
+        </div>
+
+        <div class="classify-card">
+          <div class="classify-card-icon">📝</div>
+          <div class="classify-card-name">Budget Justification</div>
+          <div class="classify-card-desc">Draft for an upcoming proposal</div>
           <div class="c-btns">
             <button class="c-btn c-btn-h" onclick="classify(this,'high')">HIGH</button>
             <button class="c-btn c-btn-m" onclick="classify(this,'mod')">MOD</button>
@@ -2713,122 +2982,308 @@
         </div>
 
       </div>
+      <div class="callout" data-step>
+        <div class="callout-icon">⚖️</div>
+        <div class="callout-text"><strong>Contents and context set the level.</strong> An award total is public, but the salary spreadsheet behind it, with names attached, is not.</div>
+      </div>
     </div>
   </div>
 
   <!-- ══════════════════════════════════════════════════════════════
-       Approved Services per Risk Tier
+       One File, Many Kinds of Information
   ══════════════════════════════════════════════════════════════════ -->
   <div class="slide bg-template" data-section="3" data-index="26">
     <div class="content">
       <div class="label">Section III · Risk Classification</div>
-      <div class="heading" style="font-size:46px; margin-bottom:14px;">Match the Tool to the Data</div>
-      <div class="tier-grid">
+      <div class="heading" style="font-size:46px; margin-bottom:22px;">One File, Many Kinds of Information</div>
+      <div class="mix-layout">
 
-        <!-- HIGH RISK -->
-        <div class="tier-card" style="--tc:#b01010; --tb:rgba(176,16,16,0.04); --tb2:rgba(176,16,16,0.12);" data-step>
-          <div class="tier-risk-badge"><span class="tier-icon">🔴</span> High Risk</div>
-          <div class="tier-data-desc">PHI, SSNs, FERPA records, personnel files, controlled research data — regulatory exposure if leaked</div>
-          <div class="tier-services-label">Approved Tools</div>
-          <div class="tier-service-item">Locally Hosted Model (on-premise)</div>
-          <div class="tier-service-item">University-managed private deployment</div>
-          <div class="tier-service-item">Air-gapped / offline AI systems</div>
-          <div class="tier-service-item">Some AI Providers with Enterprise License</div>
-          <div class="tier-note">Data never leaves your network. Zero third-party exposure.</div>
+        <div class="mix-doc">
+          <div class="mix-doc-bar"><span>📄</span> Proposal_Draft_v3.docx</div>
+
+          <div class="mix-row lv-green">
+            <div class="mix-row-body">
+              <div class="mix-row-title">Project Summary <span>Public once awarded</span></div>
+              <div class="mix-bar" style="width:94%;"></div>
+              <div class="mix-bar" style="width:70%;"></div>
+            </div>
+            <div class="mix-tag" data-step>Low</div>
+          </div>
+
+          <div class="mix-row lv-amber">
+            <div class="mix-row-body">
+              <div class="mix-row-title">Preliminary Results <span>Unpublished findings</span></div>
+              <div class="mix-bar" style="width:88%;"></div>
+              <div class="mix-bar" style="width:76%;"></div>
+            </div>
+            <div class="mix-tag" data-step>Moderate</div>
+          </div>
+
+          <div class="mix-row lv-red">
+            <div class="mix-row-body">
+              <div class="mix-row-title">Personnel Budget <span>Names and salaries</span></div>
+              <div class="mix-bar" style="width:92%;"></div>
+              <div class="mix-bar" style="width:58%;"></div>
+            </div>
+            <div class="mix-tag" data-step>High</div>
+          </div>
+
+          <div class="mix-row lv-green">
+            <div class="mix-row-body">
+              <div class="mix-row-title">References <span>Already published</span></div>
+              <div class="mix-bar" style="width:84%;"></div>
+              <div class="mix-bar" style="width:64%;"></div>
+            </div>
+            <div class="mix-tag" data-step>Low</div>
+          </div>
         </div>
 
-        <!-- MODERATE RISK -->
-        <div class="tier-card" style="--tc:#c07000; --tb:rgba(192,112,0,0.04); --tb2:rgba(192,112,0,0.12);" data-step>
-          <div class="tier-risk-badge"><span class="tier-icon">🟡</span> Moderate Risk</div>
-          <div class="tier-data-desc">Grant proposals, budgets, pre-publication research, contract data — sensitive but not regulated</div>
-          <div class="tier-services-label">Approved Tools</div>
-          <div class="tier-service-item">ChatGPT Enterprise (OpenAI)</div>
-          <div class="tier-service-item">Claude for Work (Anthropic)</div>
-          <div class="tier-service-item">Microsoft 365 Copilot</div>
-          <div class="tier-service-item">Google Gemini for Workspace</div>
-          <div class="tier-note">Contractual data protection; inputs not used for model training.</div>
+        <div class="mix-result" data-step>
+          <div class="mix-arrow">→</div>
+          <div class="mix-verdict">
+            <div class="mix-verdict-badge">Whole File: High</div>
+            <div class="mix-verdict-title">The most sensitive piece sets the level</div>
+            <div class="mix-verdict-text">Handle the file at that level, or remove that piece before it goes into an AI tool.</div>
+          </div>
         </div>
 
-        <!-- LOW RISK -->
-        <div class="tier-card" style="--tc:#1a7a1a; --tb:rgba(26,122,26,0.04); --tb2:rgba(26,122,26,0.12);" data-step>
-          <div class="tier-risk-badge"><span class="tier-icon">🟢</span> Low Risk</div>
-          <div class="tier-data-desc">Published research, public announcements, meeting notes, general policy drafts — no sensitive content</div>
-          <div class="tier-services-label">Approved Tools</div>
-          <div class="tier-service-item">ChatGPT (Free / Plus)</div>
-          <div class="tier-service-item">Claude.ai</div>
-          <div class="tier-service-item">Google Gemini</div>
-          <div class="tier-service-item">Perplexity, Copilot, etc.</div>
-          <div class="tier-note">Still review terms — many standard plans train on user inputs.</div>
-        </div>
-
-      </div>
-
-      <div class="onprem-warning" data-step>
-        <div class="onprem-arrow">&#8593;</div>
-        <div class="onprem-text">On-prem AI security is <strong>not guaranteed</strong> — it must be built and monitored.</div>
       </div>
     </div>
   </div>
 
   <!-- ══════════════════════════════════════════════════════════════
-       Locally Hosted Models: NVIDIA DGX Spark
+       AI Meeting Assistants
   ══════════════════════════════════════════════════════════════════ -->
   <div class="slide bg-template" data-section="3" data-index="27">
     <div class="content">
       <div class="label">Section III · Risk Classification</div>
-      <div class="heading" style="font-size:46px; margin-bottom:10px;">Local AI on Your Desk</div>
-      <div class="dgx-layout">
+      <div class="heading" style="font-size:46px; margin-bottom:20px;">Is AI Listening to Your Meeting?</div>
+      <div class="meet-layout">
 
-        <div class="dgx-left">
-          <div class="dgx-stats">
-            <div class="dgx-stat">
-              <div class="dgx-stat-value">$3,999</div>
-              <div class="dgx-stat-label">Starting Price</div>
-            </div>
-            <div class="dgx-stat">
-              <div class="dgx-stat-value">128 GB</div>
-              <div class="dgx-stat-label">Unified Memory</div>
-            </div>
-            <div class="dgx-stat">
-              <div class="dgx-stat-value">70B+</div>
-              <div class="dgx-stat-label">Parameter Models (local)</div>
+        <div class="meet-call">
+          <div class="meet-bar">
+            <span class="meet-dot"></span><span class="meet-dot"></span><span class="meet-dot"></span>
+            <span class="meet-bar-title">Project Kickoff · Video Call</span>
+          </div>
+          <div class="meet-tiles">
+            <div class="meet-tile"><div class="meet-avatar">PI</div><div class="meet-name">Principal Investigator</div></div>
+            <div class="meet-tile"><div class="meet-avatar">CI</div><div class="meet-name">Co-Investigator</div></div>
+            <div class="meet-tile"><div class="meet-avatar">You</div><div class="meet-name">Research Administrator</div></div>
+            <div class="meet-tile meet-tile-ai"><div class="meet-rec">● REC</div><div class="meet-ai-icon">🤖</div><div class="meet-name">AI Notetaker</div></div>
+          </div>
+          <div class="meet-transcript">
+            <div class="meet-transcript-k">Live transcript</div>
+            “…the <mark>unpublished results</mark> show a 40% gain, and the budget keeps <mark>Dr. Lee at $142K</mark>…”
+          </div>
+        </div>
+
+        <div class="meet-steps">
+          <div class="meet-step" data-step>
+            <div class="meet-step-num">1</div>
+            <div>
+              <div class="meet-step-title">Notice</div>
+              <div class="meet-step-desc">AI note-takers watch calendars and join meetings on their own</div>
             </div>
           </div>
-
-          <div class="dgx-features">
-            <div class="dgx-feature" data-step>
-              <div class="dgx-feature-icon">🖥️</div>
-              Desktop form factor — sits on a standard office desk, no server room required
+          <div class="meet-step" data-step>
+            <div class="meet-step-num">2</div>
+            <div>
+              <div class="meet-step-title">Ask</div>
+              <div class="meet-step-desc">Ask the host whether an AI tool is recording or summarizing</div>
             </div>
-            <div class="dgx-feature" data-step>
-              <div class="dgx-feature-icon">🔒</div>
-              Fully air-gapped option — sensitive data never leaves your building or network
-            </div>
-            <div class="dgx-feature" data-step>
-              <div class="dgx-feature-icon">🤖</div>
-              Runs frontier-class open models: Llama 3, Mistral, Phi-4, and more
-            </div>
-            <div class="dgx-feature" data-step>
-              <div class="dgx-feature-icon">⚡</div>
-              NVIDIA Grace Blackwell Superchip — purpose-built for AI inference workloads
+          </div>
+          <div class="meet-step" data-step>
+            <div class="meet-step-num">3</div>
+            <div>
+              <div class="meet-step-title">Act</div>
+              <div class="meet-step-desc">If the topic is sensitive, request its removal or decline to join</div>
             </div>
           </div>
         </div>
 
-        <div class="dgx-right">
-          <div class="dgx-hardware">
-            <div class="dgx-nvidia-logo">NVIDIA</div>
-            <div class="dgx-model-name">DGX Spark</div>
-            <div class="dgx-model-sub">Personal AI Supercomputer</div>
-            <div class="dgx-hw-divider"></div>
-            <div class="dgx-price-tag">from $3,999</div>
+      </div>
+      <div class="callout" data-step style="--cc:#b06000; --cb:rgba(192,112,0,0.07);">
+        <div class="callout-icon">📜</div>
+        <div class="callout-text"><strong>Check the award.</strong> Award terms, program officers, or the IRB may forbid sharing research data outside secure institutional systems.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════
+       Institutional Classification Labels
+  ══════════════════════════════════════════════════════════════════ -->
+  <div class="slide bg-template" data-section="3" data-index="28">
+    <div class="content">
+      <div class="label">Section III · Risk Classification</div>
+      <div class="heading" style="font-size:46px; margin-bottom:22px;">Every Institution Draws Its Own Lines</div>
+      <div class="labels-layout">
+
+        <div class="labels-axis">
+          <div class="labels-axis-t">More<br>sensitive</div>
+          <div class="labels-axis-bar"></div>
+          <div class="labels-axis-t">Less<br>sensitive</div>
+        </div>
+
+        <div class="labels-grid">
+          <div class="labels-card" data-step>
+            <div class="labels-inst">Arizona State</div>
+            <div class="labels-count">4 levels</div>
+            <div class="lv lv-dark">Highly Sensitive</div>
+            <div class="lv lv-red">Sensitive</div>
+            <div class="lv lv-amber">Internal</div>
+            <div class="lv lv-green">Public</div>
           </div>
-          <div class="dgx-suu-badge">
-            <div class="dgx-suu-icon">🏫</div>
-            <div>Currently deployed at Southern Utah University for high-risk research data</div>
+          <div class="labels-card" data-step>
+            <div class="labels-inst">Big 10 School</div>
+            <div class="labels-count">4 levels</div>
+            <div class="lv lv-dark">Restricted</div>
+            <div class="lv lv-red">High</div>
+            <div class="lv lv-amber">Moderate</div>
+            <div class="lv lv-green">Low</div>
+          </div>
+          <div class="labels-card" data-step>
+            <div class="labels-inst">Ivy League School</div>
+            <div class="labels-count">5 levels</div>
+            <div class="lv lv-dark">Level 5</div>
+            <div class="lv lv-red">Level 4</div>
+            <div class="lv lv-orange">Level 3</div>
+            <div class="lv lv-amber">Level 2</div>
+            <div class="lv lv-green">Level 1</div>
           </div>
         </div>
 
+      </div>
+      <div class="callout" data-step>
+        <div class="callout-icon">🧭</div>
+        <div class="callout-text"><strong>Labels, approved AI tools, and approval processes all vary.</strong> Learn your institution's before you upload.</div>
+      </div>
+      <div class="source-note">Sources: ASU Digital Trust Guidelines · U-M Safe Computing · Harvard Information Security</div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════
+       Free vs. Approved Accounts
+  ══════════════════════════════════════════════════════════════════ -->
+  <div class="slide bg-template" data-section="3" data-index="29">
+    <div class="content">
+      <div class="label">Section III · Risk Classification</div>
+      <div class="quote-wrap">
+        <div class="quote-accent"></div>
+        <div class="quote-text">If you are not paying for the product,<br><em>you are the product.</em></div>
+        <div class="quote-cite">Quoted in ASU's Digital Trust Guidelines</div>
+      </div>
+      <div class="acct-grid">
+        <div class="acct-card" data-step style="--ac:#b01010; --ab:rgba(176,16,16,0.07);">
+          <div class="acct-head"><span class="acct-icon">🆓</span> Free &amp; personal accounts</div>
+          <div class="acct-desc">Your prompts and uploads are the price of admission. They may be kept, reviewed, or used for training.</div>
+          <div class="acct-rule">Assume everything you enter is public</div>
+        </div>
+        <div class="acct-card" data-step style="--ac:#1a7a1a; --ab:rgba(26,122,26,0.07);">
+          <div class="acct-head"><span class="acct-icon">🏛️</span> Institution-approved accounts</div>
+          <div class="acct-desc">A contract protects what you enter, but each tool is approved only for certain kinds of data.</div>
+          <div class="acct-rule">A license isn't permission for every kind of data</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════
+       Case Study: Arizona State University
+  ══════════════════════════════════════════════════════════════════ -->
+  <div class="slide bg-template" data-section="3" data-index="30">
+    <div class="content">
+      <div class="label">Section III · Case Study</div>
+      <div class="heading" style="font-size:46px; margin-bottom:22px;">How It Works at Arizona State University</div>
+      <div class="process-flow">
+
+        <div class="flow-step" data-step style="--flow-color:#1a3a8f;">
+          <div class="flow-step-icon" style="background:rgba(26,58,143,0.1);">🏷️</div>
+          <div class="flow-step-num">Step 1</div>
+          <div class="flow-step-title">Classify the data</div>
+          <div class="flow-step-desc">Run it through ASU's Data Classification Tool</div>
+          <div class="flow-chips">
+            <span class="flow-chip lv-green">Public</span>
+            <span class="flow-chip lv-amber">Internal</span>
+            <span class="flow-chip lv-red">Sensitive</span>
+            <span class="flow-chip lv-dark">Highly Sensitive</span>
+          </div>
+        </div>
+
+        <div class="flow-arrow" data-step style="color:#1a3a8f;">▶</div>
+
+        <div class="flow-step" data-step style="--flow-color:#1a3a8f;">
+          <div class="flow-step-icon" style="background:rgba(26,58,143,0.1);">🔐</div>
+          <div class="flow-step-num">Step 2</div>
+          <div class="flow-step-title">Check the tool and account</div>
+          <div class="flow-step-desc">An ASU-approved tool, signed in with ASU credentials, approved for that data</div>
+          <div class="flow-chips">
+            <span class="flow-chip">ChatGPT Edu</span>
+            <span class="flow-chip">Gemini</span>
+            <span class="flow-chip">Copilot Chat</span>
+            <span class="flow-chip lv-red">Personal accounts: public data only</span>
+          </div>
+        </div>
+
+        <div class="flow-arrow" data-step style="color:#1a3a8f;">▶</div>
+
+        <div class="flow-step" data-step style="--flow-color:#1a3a8f;">
+          <div class="flow-step-icon" style="background:rgba(26,58,143,0.1);">📘</div>
+          <div class="flow-step-num">Step 3</div>
+          <div class="flow-step-title">Review your responsibilities</div>
+          <div class="flow-step-desc">Follow ASU's Digital Trust Guidelines</div>
+          <div class="flow-chips">
+            <span class="flow-chip">Privacy</span>
+            <span class="flow-chip">Confidentiality</span>
+            <span class="flow-chip">Intellectual property</span>
+            <span class="flow-chip">Transparency</span>
+          </div>
+        </div>
+
+      </div>
+      <div class="callout" data-step>
+        <div class="callout-icon">❓</div>
+        <div class="callout-text"><strong>Not sure? Ask before you upload.</strong> ASU's AI help resources: ai.asu.edu/ai-help</div>
+      </div>
+      <div class="source-note">Sources: ASU Engineering Technical Services, AI Use and Data Security · ai.asu.edu</div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════
+       Decision Process: Four Questions
+  ══════════════════════════════════════════════════════════════════ -->
+  <div class="slide bg-template" data-section="3" data-index="31">
+    <div class="content">
+      <div class="label">Section III · Risk Classification</div>
+      <div class="heading" style="font-size:46px; margin-bottom:18px;">Four Questions Before You Upload</div>
+      <div class="scenario">
+        <div class="scenario-k">Scenario</div>
+        <div>You want AI to polish the wording of an <strong>unpublished budget justification</strong>.</div>
+      </div>
+      <div class="ask-grid">
+        <div class="ask-card" data-step>
+          <div class="ask-num">1</div>
+          <div class="ask-q">What information am I submitting?</div>
+          <div class="ask-a"><span class="ask-a-k">In this case</span>Unpublished budget details, maybe staff names and salaries</div>
+        </div>
+        <div class="ask-card" data-step>
+          <div class="ask-num">2</div>
+          <div class="ask-q">How is it classified?</div>
+          <div class="ask-a"><span class="ask-a-k">In this case</span>Not public, and named salaries raise the level</div>
+        </div>
+        <div class="ask-card" data-step>
+          <div class="ask-num">3</div>
+          <div class="ask-q">Is this tool, account, and use approved?</div>
+          <div class="ask-a"><span class="ask-a-k">In this case</span>Only an institutional account approved for that level</div>
+        </div>
+        <div class="ask-card" data-step>
+          <div class="ask-num">4</div>
+          <div class="ask-q">Who can clarify an uncertain answer?</div>
+          <div class="ask-a"><span class="ask-a-k">In this case</span>Your research office, IT security, or AI help desk</div>
+        </div>
+      </div>
+      <div class="callout" data-step style="--cc:#1a7a1a; --cb:rgba(26,122,26,0.07);">
+        <div class="callout-icon">✅</div>
+        <div class="callout-text"><strong>Clear answers to all four? Go ahead.</strong> Any doubt? Ask before you upload.</div>
       </div>
     </div>
   </div>
@@ -2836,18 +3291,18 @@
   <!-- ══════════════════════════════════════════════════════════════
        Section III Takeaways
   ══════════════════════════════════════════════════════════════════ -->
-  <div class="slide bg-template" data-section="3" data-index="28">
+  <div class="slide bg-template" data-section="3" data-index="32">
     <div class="content">
       <div class="label">Section III · Takeaways</div>
       <div class="heading">What This Means for You</div>
       <div class="takeaway-key" style="border-color:#1a7a1a; background:rgba(26,122,26,0.06);">
-        <div class="takeaway-key-icon">📋</div>
-        <div class="takeaway-key-text" style="color:#1a7a1a;">Standardized guidance is key for maintaining data security</div>
+        <div class="takeaway-key-icon">🧭</div>
+        <div class="takeaway-key-text" style="color:#1a7a1a;">Clear institutional guidance makes the safe choice the easy choice</div>
       </div>
       <ul class="takeaway-list">
-        <li data-step>Well thought-through policies and data classification make decision-making clear — employees should never have to guess which AI tool is safe for a given task</li>
-        <li data-step>Shadow AI is most likely to come from leadership — policy compliance must apply at every level of the organization</li>
-        <li data-step>A tiered data classification framework (High / Moderate / Low) scales with your institution and reduces friction for low-risk use</li>
+        <li data-step>Classify by contents and context — one file can hold several kinds of data, and the most sensitive sets the level</li>
+        <li data-step>Treat free AI tools as public — and remember a license or local server doesn't cover every type of data</li>
+        <li data-step>Know your institution's labels, approved tools, and who to ask before you upload</li>
       </ul>
     </div>
   </div>
@@ -2856,7 +3311,7 @@
   <!-- ══════════════════════════════════════════════════════════════
        Q & A
   ══════════════════════════════════════════════════════════════════ -->
-  <div class="slide bg-template" data-section="4" data-index="29">
+  <div class="slide bg-template" data-section="4" data-index="33">
     <div class="qa-wrap">
       <div class="qa-bg-mark">?</div>
       <div class="qa-label">Conclusion</div>
@@ -2871,9 +3326,41 @@
   </div>
 
   <!-- ══════════════════════════════════════════════════════════════
+       AI4RA External Evaluation
+       QR (evaluation_survey.png) and bit.ly/3NwQpTi both open
+       surveymonkey.com/r/AI4RAgeneral (from ui-insight/REACHWorkshop2026)
+  ══════════════════════════════════════════════════════════════════ -->
+  <div class="slide bg-template" data-section="4" data-index="34">
+    <div class="content">
+      <div class="label">Before You Go</div>
+      <div class="heading" style="margin-bottom:10px;">AI4RA External Evaluation</div>
+      <div class="eval-layout">
+
+        <div class="eval-text">
+          <div class="eval-lead">Please take a moment to <strong>share your feedback</strong> on today's session.</div>
+          <div class="eval-how">
+            <div class="eval-how-icon">📱</div>
+            <div>Point your phone's camera at the code</div>
+          </div>
+          <div class="eval-how">
+            <div class="eval-how-icon">🔗</div>
+            <div>Or visit <strong>bit.ly/3NwQpTi</strong></div>
+          </div>
+        </div>
+
+        <div class="eval-qr-card">
+          <img src="evaluation_survey.png" alt="QR code for the AI4RA evaluation survey (bit.ly/3NwQpTi)" class="eval-qr" />
+          <div class="eval-qr-url">bit.ly/3NwQpTi</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════
        Contact Information
   ══════════════════════════════════════════════════════════════════ -->
-  <div class="slide bg-template" data-section="4" data-index="30">
+  <div class="slide bg-template" data-section="4" data-index="35">
     <div class="content">
       <div class="label">Thank You</div>
       <div class="heading">Get in Touch</div>
@@ -2895,6 +3382,10 @@
           <div class="contact-name">Bert Baumgaertner</div>
           <div class="contact-title">Founder of the AI Ethics &amp; Inquiry Outfit and Professor of Philosophy</div>
           <div class="contact-inst">University of Idaho</div>
+          <div class="contact-email-wrap">
+            <div class="contact-email-icon">✉️</div>
+            <div class="contact-email">bbaum@uidaho.edu</div>
+          </div>
         </div>
 
         <div class="contact-card">
@@ -2902,6 +3393,10 @@
           <div class="contact-name">Lucas Marshall</div>
           <div class="contact-title">Research Advancement Administrator</div>
           <div class="contact-inst">Arizona State University</div>
+          <div class="contact-email-wrap">
+            <div class="contact-email-icon">✉️</div>
+            <div class="contact-email">lucas.marshall@asu.edu</div>
+          </div>
         </div>
 
       </div>
