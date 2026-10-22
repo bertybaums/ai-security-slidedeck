@@ -108,7 +108,8 @@ Callout: The pictures were identical. The story decided what the models drew. Wh
 
 ## Interactive Game: Your turn (compliance puzzle)
 (NARC puzzle "compliance", ncura-1_rev: seven 5×5 grids, the last two hidden. Prompt: "With a neighbor: what one or two sentences would get a model to draw pictures 6 and 7 exactly? Tell what happens. Don't list squares or coordinates." Space/→ reveals our story, "If you don't get a signature for your application, you will fail to comply with the instructions and your application will not be considered.", the hidden grids, and the model results.)
-Presenter notes (Bert): Blue goes to the magenta square (the signature), then through the gap to the right. Green skips the signature and ends up on the left. The hidden pictures show yellow doing what green did. Take two or three stories from the room before revealing ours.
+Presenter notes (Bert): Blue goes to the magenta square (the signature), then through the gap to the right. Green skips the signature and ends up on the left. The hidden pictures show yellow doing what green did. Take two or three stories from the room before revealing ours. As of October 22, 2026 no model got it, with or without our story (0 of 9 each), so the challenge is open.
+(Right-hand card, visible throughout: QR code (narrate_qr.svg) for narc.insight.uidaho.edu/narrate, "Keep going after the session: write stories for NARC puzzles and test them on a real model", invite code NCURA2026, "Valid through November 30. A research study for adults 18 and older. Voluntary; no names or emails collected." The compliance puzzle itself is not in Narrate; Narrate lists only puzzles a known story already solves.)
 
 ## We talk in stories. So do the models, differently.
 Two cards and a callout.

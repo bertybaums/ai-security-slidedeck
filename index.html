@@ -2136,13 +2136,48 @@
       padding: 18px 26px;
     }
 
-    .narc-challenge { display: flex; flex-direction: column; gap: 18px; }
+    .narc-challenge { display: flex; flex-direction: column; gap: 18px; flex: 1; min-width: 0; }
 
-    .narc-challenge .narc-grid { --cell: 28px; gap: 2px; padding: 2px; }
+    .narc-challenge-row { display: flex; gap: 36px; align-items: flex-start; }
+
+    .narrate-card {
+      width: 400px; flex-shrink: 0;
+      display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center;
+      background: #fff; border-radius: 16px;
+      border: 1.5px solid #e0e0e0; border-top: 4px solid #b06000;
+      padding: 18px 22px 16px;
+      box-shadow: 0 3px 14px rgba(0,0,0,0.07);
+    }
+
+    .narrate-qr { width: 210px; height: 210px; display: block; }
+
+    .narrate-card-title { font-size: 24px; font-weight: 700; color: #111; }
+
+    .narrate-card-text { font-size: 18px; color: #444; line-height: 1.4; }
+
+    .narrate-card-url { font-size: 19px; font-weight: 700; color: #1a3a8f; }
+
+    .narrate-card-code {
+      font-family: 'Courier New', monospace; font-size: 34px; font-weight: 700; color: #111;
+      letter-spacing: 0.06em;
+      background: rgba(176,96,0,0.08); border: 2px dashed #b06000; border-radius: 10px;
+      padding: 6px 18px 8px;
+    }
+
+    .narrate-card-code span {
+      display: block; font-family: Arial, sans-serif; font-size: 12px; letter-spacing: 0.14em;
+      text-transform: uppercase; color: #b06000; margin-bottom: 2px;
+    }
+
+    .narrate-card-note { font-size: 14px; color: #666; line-height: 1.4; }
+
+    .narc-challenge .narc-grid { --cell: 22px; gap: 2px; padding: 2px; }
 
     .narc-challenge .narc-strip { gap: 10px; }
 
-    .narc-challenge .narc-arrow { font-size: 20px; }
+    .narc-challenge .narc-arrow { font-size: 18px; }
+
+    .narc-challenge .narc-strip { gap: 6px; }
 
     .narc-prompt {
       font-size: 26px; color: #222; line-height: 1.45;
@@ -3122,6 +3157,7 @@
     <div class="content">
       <div class="label">Section II · Interactive Game · Your Turn</div>
       <div class="heading" style="font-size:44px; margin-bottom:16px;">Write the story that gets it right</div>
+      <div class="narc-challenge-row">
       <div class="narc-challenge">
         <div class="narc-strip">
           <div class="narc-frame"><div class="narc-grid" data-grid="[[1,0,0,0,0],[3,0,0,0,6],[4,0,0,0,0],[5,5,0,5,5],[0,0,0,0,0]]"></div><div class="narc-frame-label">1</div></div>
@@ -3140,6 +3176,15 @@
         </div>
         <div class="narc-prompt">With a neighbor: what one or two sentences would get a model to draw pictures 6 and 7 exactly? Tell what happens. Don&rsquo;t list squares or coordinates.</div>
         <div class="narc-truth" data-step>Our story: &ldquo;If you don&rsquo;t get a signature for your application, you will fail to comply with the instructions and your application will not be considered.&rdquo;<br><span id="compliance-result"></span></div>
+      </div>
+      <div class="narrate-card">
+        <img class="narrate-qr" src="narrate_qr.svg" alt="QR code for narc.insight.uidaho.edu/narrate" />
+        <div class="narrate-card-title">Keep going after the session</div>
+        <div class="narrate-card-text">Write stories for NARC puzzles and test them on a real model.</div>
+        <div class="narrate-card-url">narc.insight.uidaho.edu/narrate</div>
+        <div class="narrate-card-code"><span>Invite code</span>NCURA2026</div>
+        <div class="narrate-card-note">Valid through November 30. A research study for adults 18 and older. Voluntary; no names or emails collected.</div>
+      </div>
       </div>
     </div>
   </div>
@@ -3746,7 +3791,7 @@
 <div id="hint">← → arrow keys to navigate</div>
 
 <!-- narc-data:start -->
-<script type="application/json" id="narc-data">{"expected":9,"puzzles":{"chat":{"truth":[[5,0,7],[5,0,7],[5,0,7]],"grids":[{"model":"gpt-oss-120b","grid":[[0,0,0],[5,0,7],[5,0,7]]},{"model":"gpt-oss-20b","grid":[[0,0,0],[0,0,0],[0,0,0]]},{"model":"qwen3.5-122b","grid":[[5,0,0],[0,0,7],[5,0,7]]},{"model":"qwen3.6-27b","grid":[[0,0,0],[5,0,7],[5,0,7]]},{"model":"qwen3.8-27b","grid":[[0,0,0],[5,0,7],[5,0,7]]},{"model":"nemotron-3-super","grid":[[0,0,0],[6,0,4],[6,0,4]]},{"model":"gemma-4-26b","grid":[[1,0,0],[0,0,2],[1,0,2]]},{"model":"gemma-4-31b","grid":[[0,0,0],[6,0,2],[6,0,2]]},{"model":"kimi-k3","grid":[[5,0,0],[0,0,7],[5,0,7]]}],"happy":[{"model":"gpt-oss-120b","grid":[[5,0,7],[5,0,7],[5,0,7]]},{"model":"gpt-oss-20b","grid":[[0,0,0],[0,0,0],[0,0,0]]},{"model":"qwen3.5-122b","grid":[[5,0,7],[5,0,7],[5,0,7]]},{"model":"qwen3.6-27b","grid":[[5,0,8],[5,0,8],[5,0,8]]},{"model":"qwen3.8-27b","grid":[[5,0,7],[5,0,7],[5,0,7]]},{"model":"nemotron-3-super","grid":[[7,0,7],[7,0,7],[7,0,7]]},{"model":"gemma-4-26b","grid":[[5,0,2],[5,0,2],[5,0,2]]},{"model":"gemma-4-31b","grid":[[2,0,0],[2,0,2],[2,0,2]]},{"model":"kimi-k3","grid":[[5,0,7],[5,0,7],[5,0,7]]}],"sad":[{"model":"gpt-oss-120b","grid":[[5,0,0],[5,0,0],[5,0,7]]},{"model":"gpt-oss-20b","grid":[[0,0,0],[0,0,0],[0,0,0]]},{"model":"qwen3.5-122b","grid":[[5,0,0],[5,0,0],[5,0,7]]},{"model":"qwen3.6-27b","grid":[[5,0,0],[5,0,0],[5,0,7]]},{"model":"qwen3.8-27b","grid":[[5,0,0],[5,0,0],[5,0,7]]},{"model":"nemotron-3-super","grid":[[8,0,0],[8,0,4],[0,0,4]]},{"model":"gemma-4-26b","grid":[[5,0,0],[5,0,7],[0,0,7]]},{"model":"gemma-4-31b","grid":[[6,0,0],[6,0,0],[6,0,7]]},{"model":"kimi-k3","grid":[[5,0,0],[5,0,0],[5,0,7]]}]},"chat_2":{"truth":[[5,0,0],[5,0,0],[5,0,7]],"grids":[{"model":"gpt-oss-120b","grid":[[5,0,0],[5,0,7],[0,0,7]]},{"model":"gpt-oss-20b","grid":[[0,0,0],[0,0,0],[0,0,0]]},{"model":"qwen3.5-122b","grid":[[0,0,0],[5,0,7],[5,0,7]]},{"model":"qwen3.6-27b","grid":[[5,0,0],[0,0,7],[5,0,7]]},{"model":"qwen3.8-27b","grid":[[0,0,0],[5,0,7],[5,0,7]]},{"model":"nemotron-3-super","grid":[[5,0,0],[0,0,7],[5,0,7]]},{"model":"gemma-4-26b","grid":[[1,0,0],[0,0,2],[1,0,2]]},{"model":"gemma-4-31b","grid":[[0,0,0],[7,0,8],[7,0,8]]},{"model":"kimi-k3","grid":[[5,0,0],[0,0,7],[5,0,7]]}],"happy":[{"model":"gpt-oss-120b","grid":[[5,0,0],[5,0,4],[5,0,4]]},{"model":"gpt-oss-20b","grid":[[0,0,0],[0,0,0],[0,0,0]]},{"model":"qwen3.5-122b","grid":[[5,0,6],[5,0,6],[5,0,6]]},{"model":"qwen3.6-27b","grid":[[5,0,7],[5,0,7],[5,0,7]]},{"model":"qwen3.8-27b","grid":[[0,0,7],[5,0,7],[5,0,7]]},{"model":"nemotron-3-super","grid":[[0,0,4],[6,0,4],[6,0,4]]},{"model":"gemma-4-26b","grid":[[7,0,6],[7,0,6],[7,0,6]]},{"model":"gemma-4-31b","grid":[[4,0,4],[4,0,4],[4,0,4]]},{"model":"kimi-k3","grid":[[5,0,7],[5,0,7],[5,0,7]]}],"sad":[{"model":"gpt-oss-120b","grid":[[5,0,0],[5,0,0],[5,0,7]]},{"model":"gpt-oss-20b","grid":[[1,0,0],[1,0,0],[1,0,2]]},{"model":"qwen3.5-122b","grid":[[5,0,0],[5,0,0],[5,0,7]]},{"model":"qwen3.6-27b","grid":[[5,0,0],[5,0,0],[5,0,7]]},{"model":"qwen3.8-27b","grid":[[5,0,0],[5,0,0],[5,0,7]]},{"model":"nemotron-3-super","grid":[[5,0,0],[0,0,7],[5,0,7]]},{"model":"gemma-4-26b","grid":[[5,0,0],[5,0,0],[5,0,3]]},{"model":"gemma-4-31b","grid":[[5,0,0],[5,0,0],[5,0,7]]},{"model":"kimi-k3","grid":[[5,0,0],[5,0,0],[5,0,7]]}]}},"compliance":{"grids":[{"model":"gpt-oss-120b","correct":0},{"model":"gpt-oss-20b","correct":0},{"model":"qwen3.5-122b","correct":0},{"model":"qwen3.6-27b","correct":0},{"model":"qwen3.8-27b","correct":0},{"model":"nemotron-3-super","correct":0}],"story":[{"model":"gpt-oss-120b","correct":0},{"model":"gpt-oss-20b","correct":0},{"model":"qwen3.5-122b","correct":0},{"model":"qwen3.6-27b","correct":0},{"model":"qwen3.8-27b","correct":0},{"model":"nemotron-3-super","correct":0}]},"source":"narc.insight.uidaho.edu AI Review runs (newest answered trial per model, original mask)","as_of":"October 22, 2026 19:53 UTC"}</script>
+<script type="application/json" id="narc-data">{"expected":9,"puzzles":{"chat":{"truth":[[5,0,7],[5,0,7],[5,0,7]],"grids":[{"model":"gpt-oss-120b","grid":[[0,0,0],[5,0,7],[5,0,7]]},{"model":"gpt-oss-20b","grid":[[0,0,0],[0,0,0],[0,0,0]]},{"model":"qwen3.5-122b","grid":[[5,0,0],[0,0,7],[5,0,7]]},{"model":"qwen3.6-27b","grid":[[0,0,0],[5,0,7],[5,0,7]]},{"model":"qwen3.8-27b","grid":[[0,0,0],[5,0,7],[5,0,7]]},{"model":"nemotron-3-super","grid":[[0,0,0],[6,0,4],[6,0,4]]},{"model":"gemma-4-26b","grid":[[1,0,0],[0,0,2],[1,0,2]]},{"model":"gemma-4-31b","grid":[[0,0,0],[6,0,2],[6,0,2]]},{"model":"kimi-k3","grid":[[5,0,0],[0,0,7],[5,0,7]]}],"happy":[{"model":"gpt-oss-120b","grid":[[5,0,7],[5,0,7],[5,0,7]]},{"model":"gpt-oss-20b","grid":[[0,0,0],[0,0,0],[0,0,0]]},{"model":"qwen3.5-122b","grid":[[5,0,7],[5,0,7],[5,0,7]]},{"model":"qwen3.6-27b","grid":[[5,0,8],[5,0,8],[5,0,8]]},{"model":"qwen3.8-27b","grid":[[5,0,7],[5,0,7],[5,0,7]]},{"model":"nemotron-3-super","grid":[[7,0,7],[7,0,7],[7,0,7]]},{"model":"gemma-4-26b","grid":[[5,0,2],[5,0,2],[5,0,2]]},{"model":"gemma-4-31b","grid":[[2,0,0],[2,0,2],[2,0,2]]},{"model":"kimi-k3","grid":[[5,0,7],[5,0,7],[5,0,7]]}],"sad":[{"model":"gpt-oss-120b","grid":[[5,0,0],[5,0,0],[5,0,7]]},{"model":"gpt-oss-20b","grid":[[0,0,0],[0,0,0],[0,0,0]]},{"model":"qwen3.5-122b","grid":[[5,0,0],[5,0,0],[5,0,7]]},{"model":"qwen3.6-27b","grid":[[5,0,0],[5,0,0],[5,0,7]]},{"model":"qwen3.8-27b","grid":[[5,0,0],[5,0,0],[5,0,7]]},{"model":"nemotron-3-super","grid":[[8,0,0],[8,0,4],[0,0,4]]},{"model":"gemma-4-26b","grid":[[5,0,0],[5,0,7],[0,0,7]]},{"model":"gemma-4-31b","grid":[[6,0,0],[6,0,0],[6,0,7]]},{"model":"kimi-k3","grid":[[5,0,0],[5,0,0],[5,0,7]]}]},"chat_2":{"truth":[[5,0,0],[5,0,0],[5,0,7]],"grids":[{"model":"gpt-oss-120b","grid":[[5,0,0],[5,0,7],[0,0,7]]},{"model":"gpt-oss-20b","grid":[[0,0,0],[0,0,0],[0,0,0]]},{"model":"qwen3.5-122b","grid":[[0,0,0],[5,0,7],[5,0,7]]},{"model":"qwen3.6-27b","grid":[[5,0,0],[0,0,7],[5,0,7]]},{"model":"qwen3.8-27b","grid":[[0,0,0],[5,0,7],[5,0,7]]},{"model":"nemotron-3-super","grid":[[5,0,0],[0,0,7],[5,0,7]]},{"model":"gemma-4-26b","grid":[[1,0,0],[0,0,2],[1,0,2]]},{"model":"gemma-4-31b","grid":[[0,0,0],[7,0,8],[7,0,8]]},{"model":"kimi-k3","grid":[[5,0,0],[0,0,7],[5,0,7]]}],"happy":[{"model":"gpt-oss-120b","grid":[[5,0,0],[5,0,4],[5,0,4]]},{"model":"gpt-oss-20b","grid":[[0,0,0],[0,0,0],[0,0,0]]},{"model":"qwen3.5-122b","grid":[[5,0,6],[5,0,6],[5,0,6]]},{"model":"qwen3.6-27b","grid":[[5,0,7],[5,0,7],[5,0,7]]},{"model":"qwen3.8-27b","grid":[[0,0,7],[5,0,7],[5,0,7]]},{"model":"nemotron-3-super","grid":[[0,0,4],[6,0,4],[6,0,4]]},{"model":"gemma-4-26b","grid":[[7,0,6],[7,0,6],[7,0,6]]},{"model":"gemma-4-31b","grid":[[4,0,4],[4,0,4],[4,0,4]]},{"model":"kimi-k3","grid":[[5,0,7],[5,0,7],[5,0,7]]}],"sad":[{"model":"gpt-oss-120b","grid":[[5,0,0],[5,0,0],[5,0,7]]},{"model":"gpt-oss-20b","grid":[[1,0,0],[1,0,0],[1,0,2]]},{"model":"qwen3.5-122b","grid":[[5,0,0],[5,0,0],[5,0,7]]},{"model":"qwen3.6-27b","grid":[[5,0,0],[5,0,0],[5,0,7]]},{"model":"qwen3.8-27b","grid":[[5,0,0],[5,0,0],[5,0,7]]},{"model":"nemotron-3-super","grid":[[5,0,0],[0,0,7],[5,0,7]]},{"model":"gemma-4-26b","grid":[[5,0,0],[5,0,0],[5,0,3]]},{"model":"gemma-4-31b","grid":[[5,0,0],[5,0,0],[5,0,7]]},{"model":"kimi-k3","grid":[[5,0,0],[5,0,0],[5,0,7]]}]}},"compliance":{"grids":[{"model":"gpt-oss-120b","correct":0},{"model":"gpt-oss-20b","correct":0},{"model":"qwen3.5-122b","correct":0},{"model":"qwen3.6-27b","correct":0},{"model":"qwen3.8-27b","correct":0},{"model":"nemotron-3-super","correct":0},{"model":"gemma-4-26b","correct":0},{"model":"gemma-4-31b","correct":0},{"model":"kimi-k3","correct":0}],"story":[{"model":"gpt-oss-120b","correct":0},{"model":"gpt-oss-20b","correct":0},{"model":"qwen3.5-122b","correct":0},{"model":"qwen3.6-27b","correct":0},{"model":"qwen3.8-27b","correct":0},{"model":"nemotron-3-super","correct":0},{"model":"gemma-4-26b","correct":0},{"model":"gemma-4-31b","correct":0},{"model":"kimi-k3","correct":0}]},"source":"narc.insight.uidaho.edu AI Review runs (newest answered trial per model, original mask)","as_of":"October 22, 2026 20:14 UTC"}</script>
 <!-- narc-data:end -->
 <script>
   /* ── Scaling ─────────────────────────────────────────────────── */

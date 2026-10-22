@@ -17,7 +17,7 @@ Hosted on GitHub Pages at: **[your-github-pages-url]**
 
 **Total:** 40 slides ✓
 
-The Section II Interactive Game (slides 23–27) is presented by Bert Baumgaertner. Its grids are drawn in the page from `data-grid` attributes; what each model drew, and the counts on slide 25, come from the JSON block `<script id="narc-data">` (between the `narc-data:start` and `narc-data:end` comments, just above the main script), taken from the AI Review runs on [narc.insight.uidaho.edu](https://narc.insight.uidaho.edu). Bert refreshes that block before the talk. Clicking a story choice reveals the drawings; Space/→ reveals what actually happened.
+The Section II Interactive Game (slides 23–27) is presented by Bert Baumgaertner. Its grids are drawn in the page from `data-grid` attributes; what each model drew, and the counts on slide 25, come from the JSON block `<script id="narc-data">` (between the `narc-data:start` and `narc-data:end` comments, just above the main script), taken from the AI Review runs on [narc.insight.uidaho.edu](https://narc.insight.uidaho.edu). Bert refreshes that block before the talk. Slide 26 carries a QR code (`narrate_qr.svg`, generated, links to narc.insight.uidaho.edu/narrate) and the NCURA invite code for Narrate. Clicking a story choice reveals the drawings; Space/→ reveals what actually happened.
 
 Section III is presented by Lucas Marshall. It was built from his outline, which is summarized at the top of the Section 3 part of `slides.md`.
 
