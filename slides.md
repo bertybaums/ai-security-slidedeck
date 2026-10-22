@@ -92,7 +92,29 @@ Key: Monitor what is being processed by your models
 (Classic slide with icons)
 
 ## Interactive Game
-Placeholder: "Simple ARC puzzle introduction here"
+(Bert. Five slides of NARC puzzles from narc.insight.uidaho.edu, about 5 minutes, replacing the "Simple ARC puzzle introduction" placeholder. The point: a story steers a model as much as a command does, and models read stories differently than people do.)
+
+## Interactive Game: Same pictures. Which story? (Chat)
+(NARC puzzle "Chat" from narc.insight.uidaho.edu. Three grids shown, the fourth hidden. Three story choices: A no story, pictures only; B "… This made Bob happy too."; C "… But Bob, being the jealous type, then became sad." Every story starts "Ally and Bob met to chat. Ally became sad. After some encouraging words from Bob, Ally became happy." Clicking a choice reveals what each of the 9 open models on the NARC site drew, grouped. Space/→ reveals what actually happened (Bob's bar rose) and marks the exact matches. Results are embedded as JSON in index.html, #narc-data.)
+Presenter notes (Bert): Ask the room first what each choice will produce. With no story, the models disagree and none gets it exactly; the most common guess puts both bars back where they started. With B, most draw Bob rising. With C, most draw Bob dropping, which is wrong here but exactly what the story said. The model draws whatever the story says. Some draw the right ending in the wrong colors, which counts as wrong. "No answer" means the model reasoned for a very long time and never settled on a grid.
+
+## Interactive Game: Same pictures. Different ending. (Chat-2)
+(Same three grids and the same three choices. In Chat-2 Bob really did end up sad. Same click-to-reveal; Space/→ reveals the truth: "What actually happened: Bob's bar dropped. The models got exactly the same input as on the last slide, yet many drew something different this time. And now a different ending is right.")
+Presenter notes (Bert): For each story, the models got exactly the same prompt as on the Chat slide (same pictures, same words), run a second time. Even so, many drew something different: the same drawing both times for 4 of 9 models with no story, 2 of 9 with the happy ending, 5 of 9 with the jealous ending. Mostly colors and details changed; the story still set whether Bob went up or down. Same input, different output. And now the jealous ending is the right one, which the model has no way to know.
+
+## Interactive Game: the cross-comparison
+(Table: rows = story given (none, happy ending, sad ending); columns = Chat (Bob ended happy) and Chat-2 (Bob ended sad); cells = how many of the 9 models drew the hidden grid exactly, computed from #narc-data. Space/→ reveals the callout.)
+Callout: The pictures were identical. The story decided what the models drew. Whether that was right depended on what actually happened, and the model had no way to check.
+
+## Interactive Game: Your turn (compliance puzzle)
+(NARC puzzle "compliance", ncura-1_rev: seven 5×5 grids, the last two hidden. Prompt: "With a neighbor: what one or two sentences would get a model to draw pictures 6 and 7 exactly? Tell what happens. Don't list squares or coordinates." Space/→ reveals our story, "If you don't get a signature for your application, you will fail to comply with the instructions and your application will not be considered.", the hidden grids, and the model results.)
+Presenter notes (Bert): Blue goes to the magenta square (the signature), then through the gap to the right. Green skips the signature and ends up on the left. The hidden pictures show yellow doing what green did. Take two or three stories from the room before revealing ours.
+
+## We talk in stories. So do the models, differently.
+Two cards and a callout.
+How we communicate: Stories, analogies, and metaphors pack a lot into a few words. "Bob, being the jealous type" tells you what Bob does next without saying it. That is how we compress information and get it across quickly.
+How the models read it: They are getting better at this. Most models above followed the story they were given. But not always the way a person would: the right ending in the wrong colors, or pages of reasoning and no answer. Ask twice, and you may get a different drawing.
+Callout: For security: an injected story doesn't have to look like a command. And you can't tell by reading it how a model will take it.
 
 # Section 3
 
